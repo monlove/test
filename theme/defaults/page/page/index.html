@@ -1,0 +1,38 @@
+{extend name="./theme/defaults/base.html" /}
+{block name="plugcss"}
+{/block} 
+{block name="css"}
+{/block} 
+{block name="style"}
+{/block} 
+{block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-primary-dark">
+		<section class="content content-full content-boxed">
+			<!-- Section Content -->
+			<div class="push-100-t push-50 text-center">
+				<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$page_data['alias']}</h1>
+				<h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$page_data['description']}</h2>
+			</div>
+			<!-- END Section Content -->
+		</section>
+	</div>
+	<div class="bg-white">
+        <section class="content content-boxed">
+        	{$page_data['content']|raw}
+        </section>
+    </div>    
+	<!-- END Hero Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"}
+{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}
+{/block} 
+{block name="script"}
+{/block}

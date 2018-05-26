@@ -1,0 +1,116 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css"> {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<h3 class="block-title">{$actiondb['name']}</h3>
+						</div>
+					</div>
+					<!-- END Step Tabs -->
+					<!-- Form -->
+					<form class="js-forms form-horizontal" action="{:url('admin/AppAgentSort/inEdit')}" method="post">
+						<!-- Steps Content -->
+						<input type="hidden" name="sort_id" id="sort_id" value="{$sort_db['id']}" />
+						<div class="block-content tab-content">
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="username">名称</label>
+									<input class="form-control" type="text" id="name" name="name" value="{$sort_db['name']}" placeholder="代理类型名">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="tryout_time">返利率</label>
+									<input class="form-control" type="text" id="rebate_ratio" name="rebate_ratio" value="{$sort_db['rebate_ratio']}" placeholder="0.1">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">应用销售价返利多给代理的比例,必需小于1,如 :填写 <code>0.3</code> 就是 <code>30%</code> , 销售价 <code>100元</code> , 就返利给代理 <code>30元</code></div>
+							</div>
+							<!-- END Step 1 -->
+						</div>
+						<!-- END Steps Content -->
+
+						<!-- Steps Navigation -->
+						<div id="subbox" class="block-content block-content-mini block-content-full border-t">
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<a class="btn btn-default" href="{:url('admin/AppAgent/index')}" type="submit"><i class="si si-action-undo"></i> 返回</a>
+									<button class="btn btn-primary" id="sub" type="submit"><i class="fa fa-check"></i> 提交</button>
+								</div>
+								<div class="col-xs-6 text-right">
+									<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+								</div>
+							</div>
+						</div>
+						<!-- END Steps Navigation -->
+					</form>
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+{/block} {block name="pagejs"}
+<script src="__JS__/app_add.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+	var global_public = '__PUBLIC__';
+	jQuery(function() {
+		// Init page helpers (CKEditor + Select2 + Tags Inputs plugins);
+		App.initHelpers(['select2', 'tags-inputs']);
+		imgUpload();
+	})
+	
+</script>
+{/block}

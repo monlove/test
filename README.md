@@ -1,39 +1,92 @@
-# rainos
+环镜要求
+    php >= PHP7.X版本
+    PDO PHP Extension
+    MBstring PHP Extension
+    CURL PHP Extension
+    php伪静态
+    Apache
 
-#### 项目介绍
-{**以下是码云平台说明，您可以替换为您的项目简介**
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+安装说明：
+      打开网站自动转到安装界面
+升级说明：
+    1.打开http://域名/install/update,输入数据库密码进行升级！
+    2.浏览器清空缓存文件，否则部份页面提交不了！   
 
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+1.0升级到1.2说明
+    把1.0版apps/database.php文件复制到1.2版本的config目录下
+ 
+注意： 
+    为什么没有install目录？不要再问，这是伪静态，所以不用这个目录，只要你网站伪静态正常，按环境要求就可以装！
 
 
-#### 码云特技
+API接口文档已自带在程序网站中，访问  http://你的域名/doc
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [http://git.mydoc.io/](http://git.mydoc.io/)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+客户端例程后面发布,一般会http协议的看API都能搞定，非常简单
+Linux服务端开启websocket方法：
+            切换到rainos根目录,执行  php server.php start -d
+windows服务器开启websocket方法：
+           打开cmd， cd到rainos根目录,执行  php server.php start 
+           
+                     
+websocket消息说明
+            服务端接收消息 为json格式
+            客户端发送登录消息：    {"data_type":"login","user_id":"320"，"app_id":"2"} 
+    data_type消息类型 ,user_id用户ID ,app_id应用id 
+            客户端接收消息 为json格式
+            客户端收到下线消息： {"msg_type":"exit"}                                                
+                   
+
+
+用户购买后请联系我的QQ80692285,提供您的信息
+格式如下
+论坛ID:xxxx
+QQ:xxxx
+授权域名：xxxx.xxx.xxx
+2018-05-24
+1.后台增加代理商卡管理功能
+2.前台个人中心代理商支持发卡
+3.前台js代码使用压缩
+4.不再支持php7以下版本
+
+2018-05-08
+1.修正编辑器上传图片错误
+2.修正无限期用户和免费应用也提示到期时间
+3.改进与修正websocket服务端连接
+
+
+
+
+2018-02-24
+1.修正应用加密功能开启后接口错误
+1.修正websocket KEY无法读取导至在线用户不显示
+3.修正后台个别页面ajax返回错误
+
+
+
+2018-02-03
+1.修正前台页面内容和商品内容带无素
+2.修正部份AJAX提交返回显示不正确
+3.修正支付接口配置读取错误
+4.修正验证卡类型单位错误
+5.表格数据改为POST读取
+6.修正后台无法配置前台导航
+7.修正文章分类和文章无法添
+
+2018-01-23更新说明-大更新，BUG多
+1.增加黑名单功能,支持类型:ip,用户名,设备码,其它信息
+2.增加用户注册ip地区信息
+3.增加用户日志功能
+3.修正用户多查询不到数据问题
+
+20171218更新内容：
+1.更新部份位置显示错误
+2.增加充值卡和卡类型功能
+3.更新永久卡,点类型
+4.增加版本更新控制器
+5.还有的忘记了.....
+
+20171112更新内容：
+1.增加websocket服务，可查看在线用户和踢用户下线
+2.修正首页导航二级下拉菜单
+3.修正销售页用户不选择销售项可点购买按钮
+4.......

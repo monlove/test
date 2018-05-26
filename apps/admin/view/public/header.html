@@ -1,0 +1,102 @@
+<!-- Header -->
+<!-- Header -->
+<header id="header-navbar" class="content-mini content-mini-full">
+	<ul class="nav-header pull-right">
+		<li>
+			<div class="btn-group">
+				<button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
+                    <img src="__ONEUI__/img/avatars/rainuser.png" alt="Avatar">
+                    <span class="caret"></span>
+                </button>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li class="dropdown-header">最近</li>
+					<li>
+						<a tabindex="-1" href="#">
+							<i class="si si-envelope-open pull-right"></i>
+							<span class="badge badge-primary pull-right">3</span>消息
+						</a>
+					</li>
+					<li>
+						<a tabindex="-1" href="#">
+							<i class="si si-user pull-right"></i>
+							<span class="badge badge-success pull-right">1</span>近况
+						</a>
+					</li>
+					<li>
+						<a tabindex="-1" href="{:url('admin/User/edit')}">
+							<i class="si si-settings pull-right"></i>设置
+						</a>
+					</li>
+					<li class="divider"></li>
+					<li class="dropdown-header">操作</li>
+					<!--<li>
+						<a tabindex="-1" href="base_pages_lock.html">
+							<i class="si si-lock pull-right"></i>锁定账户
+						</a>
+					</li>-->
+					<li>
+						<a tabindex="-1" href="{:url('index/User/quit')}">
+							<i class="si si-logout pull-right"></i>注销
+						</a>
+					</li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<button class="btn btn-default hidden-xs hidden-sm hidden-md" data-toggle="tooltip" data-action="side_overlay_toggle" data-placement="bottom" data-original-title="清空缓存" type="button">
+                <i class="fa fa-eraser"></i>
+            </button>
+		</li>
+		<li>
+			<a class="btn btn-default" href="{:url('index/Index/index')}" data-toggle="tooltip" data-action="side_overlay_toggle" data-placement="bottom" data-original-title="网站首页" type="button">
+                <i class="fa fa-home"></i>
+            </a>
+		</li>
+		<!--<li>
+			<button class="btn btn-default" data-toggle="layout" data-action="side_overlay_toggle" type="button">
+                            <i class="fa fa-tasks"></i>
+                        </button>
+		</li>-->
+	</ul>
+	<ul class="nav-header pull-left">
+		<li class="hidden-md hidden-lg">
+			<button class="btn btn-default" data-toggle="layout" data-action="sidebar_toggle" type="button">
+                <i class="fa fa-navicon"></i>
+            </button>
+		</li>
+		<li class="hidden-xs hidden-sm">
+			<button id="sidebar-mini-toggle" class="btn btn-default" data-toggle="layout" data-action="sidebar_mini_toggle" type="button">
+                <i class="fa fa-ellipsis-v"></i>
+            </button>
+		</li>
+		{volist name="menu" id="vo"}
+		    {if condition="$vo.parent_id == 0"}
+		        <li class="hidden-xs hidden-sm {$vo.module_li_class}">
+                    <a href="{:url($vo.node)}" data-module-id="1" data-module="admin" data-controller="index" target="_self" class="header-menu">
+            	    <i class="{$vo.icon}"></i> {$vo.name}
+                    </a>
+               </li>
+            {/if}
+        {/volist}
+
+		<li>
+			<button class="btn btn-default pull-right" data-toggle="modal" data-target="#apps-modal" type="button">
+                <i class="si si-grid"></i>
+            </button>
+		</li>
+		<li class="visible-xs">
+			<button class="btn btn-default" data-toggle="class-toggle" data-target=".js-header-search" data-class="header-search-xs-visible" type="button">
+                <i class="fa fa-search"></i>
+            </button>
+		</li>
+		<li class="js-header-search header-search">
+			<form class="form-horizontal" action="base_pages_search.html" method="post">
+				<div class="form-material form-material-primary input-group remove-margin-t remove-margin-b">
+					<input class="form-control" type="text" id="base-material-text" name="base-material-text" placeholder="Search..">
+					<span class="input-group-addon"><i class="si si-magnifier"></i></span>
+				</div>
+			</form>
+		</li>
+	</ul>
+</header>
+<!-- END Header -->

@@ -1,0 +1,165 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+{/block}
+{block name="css"}
+{/block} 
+{block name="style"}
+
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<h3 class="block-title">{$actiondb['name']}</h3>
+						</div>
+					</div>
+					<!-- END Step Tabs -->
+					<!-- Form -->
+					<form class="js-forms form-horizontal" action="{:url('admin/AppPrice/inAdd')}" method="post">
+						<!-- Steps Content -->
+						<div class="block-content tab-content">
+							<!-- Step 1 -->
+							<input type="hidden" name="app_id" id="app_id" value="{$appdb['id']}" />
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-name">应用名称</label>
+									<input class="form-control" type="text" id="example-disabled-input" name="example-disabled-input" placeholder="{$appdb['name']}" disabled="">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="tryout_time">价格名称</label>
+									<input class="form-control" type="text" id="name" name="name" placeholder="价格名称 如：1小时 , 1月 , 2月 , 1年">
+								</div>
+							</div>							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label class="" for="bind">时间选项</label>
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									{foreach $Think.config.time_unit as $vo}
+                                    <label class="css-input css-radio css-radio-primary push-10-r">
+                                        <input type="radio" name="time_unit" value="{$vo.name}"><span></span> {$vo.title}
+                                    </label>									
+									{/foreach}                                
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">必需选择一项做为时间选项  </div>
+							</div>							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">时间值</label>
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+									    <input class="form-control" type="text" name="time_num" placeholder="如 ：1 , 2 , 3 , 4 , 5">
+									</div>    
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">以选项为单位的值  如  <code>1 , 2 , 3 , 4 , 5</code> 的整数</div>
+							</div>
+                            <div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="unbind_dec_time">价格</label>
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-yen"></i></span>
+										<input class="form-control" type="text" id="price" name="price" placeholder="10.00">
+									</div>
+									
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">以人民币金额 <code>元</code> 为单位</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-comment">备注</label>
+									<textarea class="form-control" id="app-comment" name="comment" rows="3" placeholder="价格备注说明"></textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"></div>
+							</div>
+
+							<!-- END Step 1 -->
+						</div>
+						<!-- END Steps Content -->
+
+						<!-- Steps Navigation -->
+						<div id="subbox" class="block-content block-content-mini block-content-full border-t">
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<a class="btn btn-default" href="{:url('admin/AppPrice/index')}" type="submit"><i class="si si-action-undo"></i> 返回</a>
+									<button class="btn btn-primary" id="sub" type="submit"><i class="fa fa-check"></i> 提交</button>
+								</div>
+								<div class="col-xs-6 text-right">
+									<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+								</div>
+							</div>
+						</div>
+						<!-- END Steps Navigation -->
+					</form>
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block} 
+{block name="pagejs"}
+<script src="__JS__/app_add.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+var global_public='__PUBLIC__';	
+jQuery(function () {
+    // Init page helpers (CKEditor + Select2 + Tags Inputs plugins);
+    imgUpload();
+})
+</script>
+{/block}

@@ -1,0 +1,142 @@
+<!-- Header -->
+<style>
+.btn.btn-image>img{
+	border-radius: 100%;
+    border: 2px solid #fff;		
+}
+</style>
+<header id="header-navbar" class="content-mini content-mini-full">
+	<div class="content-boxed">
+		<!-- Header Navigation Right -->
+		{if condition="$user_info eq True"}
+		<ul class="nav-header pull-right">
+			<li>
+				<!-- Themes functionality initialized in App() -> uiHandleTheme() -->
+				<div class="btn-group">
+					<button class="btn btn-link btn-image text-white dropdown-toggle" data-toggle="dropdown" type="button">
+                        <!--<i class="si si-user"></i>-->
+                        <img src="{empty name="$user_info['icon']"}__ONEUI__/img/avatars/rainuser.png{else /}{$user_info['icon']}{/empty}" alt="Avatar">
+                        <span class="caret"></span>
+                    </button>
+					<ul class="dropdown-menu dropdown-menu-right sidebar-mini-hide font-s13">
+						<li class="dropdown-header">用户</li>
+						<li>							
+							<a tabindex="-1" href="#">
+							    <span class="pull-right">{$Think.session.user_auth.user_id}</span>
+								<span class="pull-right">ID: </span>{$Think.session.user_auth.user_name}
+							</a>
+						</li>
+						<li>							
+							<a tabindex="-1" href="#">
+							    <i class="si si-users pull-right"></i>
+								<span class="label label-info pull-right"> {$user_info['role'][0]['title']}</span>角色
+							</a>
+						</li>						
+						<li>
+							<a tabindex="-1" href="#">
+								<i class="si si-heart pull-right"></i>
+								<span class="badge badge-danger pull-right">1</span>积分
+							</a>
+						</li>						
+						<!--<li>
+							<a tabindex="-1" href="base_pages_inbox.html">
+								<i class="si si-envelope-open pull-right"></i>
+								<span class="badge badge-primary pull-right">3</span>消息
+							</a>
+						</li>-->
+						<li class="divider"></li>
+						<li class="dropdown-header">操作</li>
+						{if condition="session('user_auth.user_id') eq 1"}
+						<li>
+							<a tabindex="-1" href="{:url('admin/Index/index')}">
+								<i class="si si-wrench pull-right"></i>管理
+							</a>
+						</li>
+						{/if}
+						<li>
+							<a tabindex="-1" href="{:url('index/UserDashboard/index')}">
+								<i class="si si-settings pull-right"></i>个人中心
+							</a>
+						</li>						
+						<li>
+							<a tabindex="-1" href="{:url('index/User/quit')}">
+								<i class="si si-logout pull-right"></i>注销
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li class="hidden-md hidden-lg">
+				<!-- Toggle class helper (for main header navigation below in small screens), functionality initialized in App() -> uiToggleClass() -->
+				<button class="btn btn-link text-white pull-right" data-toggle="class-toggle" data-target=".js-nav-main-header" data-class="nav-main-header-o" type="button">
+                                <i class="fa fa-navicon"></i>
+                            </button>
+			</li>
+		</ul>
+		{else /}
+		<!-- Header Navigation Right -->
+		<ul class="nav-header pull-right">
+			<!-- Themes functionality initialized in App() -> uiHandleTheme() -->
+			<li>
+				<div class="btn-group">
+					<a type="button" href="{:url('index/User/login')}" class="btn btn-link text-white">登录</a>
+					<a type="button" href="{:url('index/User/register')}" class="btn btn-link text-white">注册</a>
+
+				</div>
+			</li>
+			<li class="hidden-md hidden-lg">
+				<!-- Toggle class helper (for main header navigation below in small screens), functionality initialized in App() -> uiToggleClass() -->
+				<button class="btn btn-link text-white pull-right" data-toggle="class-toggle" data-target=".js-nav-main-header" data-class="nav-main-header-o" type="button">
+                    <i class="fa fa-navicon"></i>
+                </button>
+			</li>
+		</ul>
+		<!-- END Header Navigation Right -->
+
+		{/if}
+
+		<!-- Main Header Navigation -->
+
+		<ul class="js-nav-main-header nav-main-header pull-right">
+			<li class="text-right hidden-md hidden-lg">
+				<!-- Toggle class helper (for main header navigation in small screens), functionality initialized in App() -> uiToggleClass() -->
+				<button class="btn btn-link text-white" data-toggle="class-toggle" data-target=".js-nav-main-header" data-class="nav-main-header-o" type="button">
+                                <i class="fa fa-times"></i>
+                            </button>
+			</li>
+            <!--导航菜单-->
+            {foreach $navlist as $vo}
+            {eq name="$vo.parent_id" value="0"}
+            <li>
+				<a class="active" href="{$vo.url}"><i class="{$vo.icon}"></i>{$vo.name}</a>
+				{eq name="$vo.is_level" value="on"}
+				<ul>
+				{foreach $navlist as $vb}
+				{eq name="$vb.parent_id" value="$vo.id"}
+                    <li>
+                        <a href="{$vb.url}"><i class="{$vb.icon}"></i>{$vb.name}</a>
+                    </li>
+                {/eq}    
+				{/foreach}					
+				</ul>
+				{/eq}
+
+			</li>            
+            {/eq}
+            {/foreach}
+
+		</ul>
+		<!-- END Main Header Navigation -->
+
+		<!-- Header Navigation Left -->
+		<ul class="nav-header pull-left">
+			<li class="header-content">
+				<a class="h5" href="{:url('index/Index/index')}">
+					<i class="fa fa-circle-o-notch text-primary"></i> <span class="h5 font-w600 text-white">{$themedb.data.site_title}</span>
+				</a>
+			</li>
+		</ul>
+		<!-- END Header Navigation Left -->
+	</div>
+</header>
+<!-- END Header -->

@@ -1,0 +1,114 @@
+{extend name="./theme/defaults/user/userbase.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" /> {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Sub Header -->
+	<div class="bg-gray-lighter visible-xs">
+		<div class="content-mini content-boxed">
+			<button class="btn btn-block btn-default visible-xs push" data-toggle="collapse" data-target="#sub-header-nav">
+                            <i class="fa fa-navicon push-5-r"></i>菜单
+                        </button>
+		</div>
+	</div>
+	<div class="bg-primary-lighter collapse navbar-collapse remove-padding" id="sub-header-nav">
+		<div class="content-mini content-boxed">
+			<ul class="nav nav-pills nav-sub-header push">
+				{foreach $user_menu as $vo}
+				<li class="{eq name=" $node " value="$vo.node "}active{/eq}">
+					<a href="{:url($vo.node)}">
+						<i class="{$vo.icon} push-5-r"></i>{$vo.name}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- END Sub Header -->
+	<!-- Page Content -->
+	<div class="content content-boxed">
+		<!-- User Header -->
+		<div class="block">
+			<!-- Basic Info -->
+			<!-- Section -->
+			<div class="bg-image overflow-hidden push" style="background-image: url('__IMG__/user/top.jpg');">
+				<div class="bg-black-op">
+					<div class="content">
+						<div class="block block-transparent block-themed text-center">
+							<div class="block-content">
+								<h1 class="h1 font-w700 text-white animated fadeInDown push-5">{$user_page['name']}</h1>
+								<h2 class="h4 font-w400 text-white-op animated fadeInUp">{$user_info.username}</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END Section -->
+			<!-- END Basic Info -->
+
+			<!-- Stats -->
+			<div class="block-content text-center">
+				<div class="row items-push text-uppercase">
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">未售卡</div>
+						<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0)">{$card_count_db.unsold_num}</a>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">已售卡</div>
+						<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0)">{$card_count_db.sell_num}</a>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">已用卡</div>
+						<a class="h2 font-w300 text-danger animated flipInX" href="javascript:void(0)">{$card_count_db.use_num}</a>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">总卡数</div>
+						<div class="text-warning push-10-t animated flipInX">{$card_count_db.sum_num}</div>
+					</div>
+				</div>
+			</div>
+			<!-- END Stats -->
+		</div>
+		<!-- END User Header -->
+
+		<!-- Main Content -->
+		<div class="block">
+			<div class="block-header">
+				<div class="block-options">
+					<code>.AppTable</code>
+				</div>
+				<h3 class="block-title">APP列表</h3>
+			</div>
+			<div class="block-content">
+				<div id="toolbar">
+				</div>
+				<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+				<table class="table table-bordered table-striped js-dataTable-full">
+					<thead>
+						<tr>
+							<th>APP ID</th>
+							<th class="">应用名</th>
+							<th class="">未用/已售/已用/总数</th>
+							<th class="">剩余生成数</th>
+							<th class="hidden-xs">操作</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="tools">
+
+				</div>
+
+			</div>
+		</div>
+		<!-- END Main Content -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}
+<script src="__JS__/agent_app_index.js"></script>
+{/block} {block name="script"} {/block}

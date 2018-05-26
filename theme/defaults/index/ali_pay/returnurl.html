@@ -1,0 +1,110 @@
+{extend name="./theme/defaults/base.html" /}
+{block name="plugcss"}{/block} {block name="css"}{/block} {block name="style"}{/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-image" style="background-image: url('__IMG__/shop/order1.jpg');">
+		<div class="bg-primary-dark-op">
+			<section class="content content-full content-boxed overflow-hidden">
+				<!-- Section Content -->
+				<div class="push-30-t push-30 text-center">
+					<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown"><i class="fa fa-shopping-cart text-white-op"></i> {$trade_record['subject']}</h1>
+					<h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$trade_record['body']}</h2>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Hero Content -->
+
+	<!-- Checkout Content -->
+	<section class="content content-boxed">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<!-- Card plugin (.js-card-form and .js-card-container are initialized at the bottom of the page) -->
+				<!-- For more info and examples you can check out https://github.com/jessepollak/card -->
+				<form class="js-card-form form-horizontal" action="{:url('index/AliPay/alipayapi')}" method="get">
+					<!-- Products -->
+					<div class="block">
+						<div class="block-header">
+							<h3 class="block-title">订单</h3>
+						</div>
+						<div class="block-content">
+							<table class="table table-borderless table-vcenter">
+								<tbody>
+									<tr class="danger">
+										<td class="text-center" colspan="4">
+                                            <span class="h4 font-w600">{$trade_record['trade_status']}</span>
+										</td>
+
+									</tr>									
+									<tr>
+										<td style="width: 55px;">
+											<i class="si si-paper-clip"></i>
+										</td>
+										<td>
+											<span class="h5">订单号</span>
+										</td>
+										<td class="text-right">
+											<div class="font-w600">{$trade_record['id']}</div>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 55px;">
+											<i class="si si-present"></i>
+										</td>
+										<td>
+											<span class="h5">商品名称</span>
+										</td>
+										<td class="text-right">
+											<div class="font-w600">{$trade_record['subject']}</div>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 55px;">
+											<i class="si si-book-open"></i>
+										</td>
+										<td>
+											<span class="h5">商品描术</span>
+										</td>
+										<td class="text-right">
+											<div class="font-w600">{$trade_record['body']}</div>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 55px;">
+											<i class="si si-tag"></i>
+										</td>
+										<td>
+											<span class="h5">价格</span>
+										</td>
+										<td class="text-right">
+											<div class="font-w600 text-warning">&yen; {$trade_record['total_fee']}</div>
+										</td>
+									</tr>
+									<tr class="success">
+										<td class="text-right" colspan="2">
+											<span class="h4 font-w600">付款金额</span>
+										</td>
+										<td class="text-right">
+											<div class="h4 font-w600 text-danger">&yen; {$trade_record['total_fee']}</div>
+										</td>
+									</tr>									
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- END Products -->
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- END Checkout Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"}{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}{/block} {block name="script"}{/block}

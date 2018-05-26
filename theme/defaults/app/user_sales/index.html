@@ -1,0 +1,100 @@
+{extend name="./theme/defaults/user/userbase.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" /> {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Sub Header -->
+	<div class="bg-gray-lighter visible-xs">
+		<div class="content-mini content-boxed">
+			<button class="btn btn-block btn-default visible-xs push" data-toggle="collapse" data-target="#sub-header-nav">
+                            <i class="fa fa-navicon push-5-r"></i>菜单
+                        </button>
+		</div>
+	</div>
+	<div class="bg-primary-lighter collapse navbar-collapse remove-padding" id="sub-header-nav">
+		<div class="content-mini content-boxed">
+			<ul class="nav nav-pills nav-sub-header push">
+				{foreach $user_menu as $vo}
+				<li class="{eq name=" $node " value="$vo.node "}active{/eq}">
+					<a href="{:url($vo.node)}">
+						<i class="{$vo.icon} push-5-r"></i>{$vo.name}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- END Sub Header -->
+
+	<!-- Page Content -->
+	<div class="content content-boxed">
+		<!-- Section -->
+		<div class="bg-image img-rounded overflow-hidden push" style="background-image: url('__IMG__/user/top.jpg');">
+			<div class="bg-black-op">
+				<div class="content">
+					<div class="block block-transparent block-themed text-center">
+						<div class="block-content">
+							<h1 class="h1 font-w700 text-white animated fadeInDown push-5">{$user_page['name']}</h1>
+							<h2 class="h4 font-w400 text-white-op animated fadeInUp">{$user_info.username}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Section -->
+		<!-- Stats -->
+		<div class="row text-uppercase">
+			<div class="col-xs-6 col-sm-6">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="font-s12 font-w700">交易额</div>
+						<a class="h2 font-w300 text-primary" href="javascript:void(0)">&yen; {$record.sum}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-6">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="font-s12 font-w700">交易量</div>
+						<a class="h2 font-w300 text-primary" href="javascript:void(0)">{$record.count}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Stats -->
+		<!-- Settings -->
+		<div class="block">
+			<div class="block-header">
+				<ul class="block-options">
+					<li>
+						<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+					</li>
+				</ul>
+				<h3 class="block-title">Sales</h3>
+			</div>
+			<div class="block-content">
+				<table class="table table-hover table-vcenter js-dataTable-full">
+					<thead>
+						<tr>
+							<th class="hidden-xs">时间</th>
+							<th class="hidden-xs">单号</th>
+							<th class="hidden-xs">名称</th>
+							<th class="hidden-xs">金额</th>
+							<th class="hidden-xs">内容</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<!-- END Settings -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}
+<script src="__JS__/user_sales_index.js"></script>
+{/block} {block name="script"} {/block}

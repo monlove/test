@@ -1,0 +1,252 @@
+{extend name="./theme/defaults/base.html" /}
+{block name="plugcss"} {/block} {block name="css"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/jquery-labelauty/source/jquery-labelauty.css" /> {/block} {block name="style"}
+<style type="text/css">
+	.img-container {
+		height: 212px;
+	}
+	
+	.ul-radio {
+		padding-left: 0px;
+	}
+	
+	.li-radio {
+		display: inline-block;
+		padding-left: 10px;
+	}
+	
+	.li-radio>label {
+		border: 1px solid #70b9eb;
+		border-radius: 0px;
+	}
+	
+	input.labelauty+label {
+		font: 12px "Microsoft Yahei";
+	}
+</style>
+{/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+
+	<!-- Hero Content -->
+	<div class="bg-image" style="background-image: url('__IMG__/shop/goods1.jpg');">
+		<div class="bg-primary-dark-op">
+			<section class="content content-full content-boxed overflow-hidden">
+				<!-- Section Content -->
+				<div class="push-30-t push-30 text-center">
+					<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$goods_db['title']}</h1>
+					<h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$goods_db['alias']}</h2>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Hero Content -->
+
+	<!-- Side Content and Product -->
+	<div class="bg-gray-lighter">
+		<section class="content content-boxed">
+			<div class="row">
+				<div class="col-lg-3">
+					<!-- Buttons which toggles side nav content content in smaller screens -->
+					<!-- Toggle class helper (for .js-nav-content below), functionality initialized in App() -> uiToggleClass() -->
+					<div class="block hidden-lg">
+						<div class="block-content">
+							<button class="btn btn-sm btn-block btn-default push" type="button" data-toggle="class-toggle" data-target=".js-nav-content" data-class="visible-lg">
+                                            <i class="fa fa-list-ul push-5-r"></i> 统计
+                                        </button>
+						</div>
+					</div>
+					<!-- Side Content -->
+					<div class="js-nav-content visible-lg">
+						<!-- Categories -->
+						<div class="block">
+							<div class="block-content">
+								<ul class="nav nav-pills nav-stacked push">
+									<li class="active">
+										<a href="javascript:void(0)"><span class="badge pull-right">{$goods_db['user_count']}</span> 用户</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)"><span class="badge pull-right">{$goods_db['sales_num']}</span> 销量</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)"><span class="badge pull-right">{$goods_db['access_num']}</span> 访问</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						<!-- END Categories -->
+
+						<!-- Best Authors -->
+						<div class="block">
+							{foreach $goods_db.user_list as $vo}
+							<a class="block block-link-hover3 block-transparent remove-margin-b" href="javascript:void(0)">
+								<div class="block-content block-content-full clearfix">
+									<div class="pull-right">
+										<img class="img-avatar" src="{empty name=" $vo.user_db.icon "}__ONEUI__/img/avatars/avatar6.jpg{else /}{$vo.user_db.icon}{/empty}" alt="">
+									</div>
+									<div class="pull-left push-10-t">
+										<div class="font-w600 push-5">{$vo.user_db.username}</div>
+										<div class="text-muted"><i class="si si-link"></i> {$vo.connect_count} </div>
+									</div>
+								</div>
+							</a>
+							{/foreach}
+						</div>
+						<!-- END Best Authors -->
+					</div>
+					<!-- END Side Content -->
+				</div>
+				<div class="col-lg-9">
+					<!-- Product -->
+					<div class="block">
+						<div class="block-content">
+							<div class="row items-push">
+								<div class="col-sm-6">
+									<!-- Images -->
+									<div class="row js-gallery">
+										<div class="col-xs-12 push-10">
+											<a class="img-link" href="{notempty  name="$goods_db.featured_image "}{$goods_db.featured_image}{else/}__STATIC__/img/screenshot.png{/notempty}">
+												<img class="img-responsive" src="{notempty  name="$goods_db.featured_image "}{$goods_db.featured_image}{else/}__STATIC__/img/screenshot.png{/notempty}" alt="">
+											</a>
+										</div>
+									</div>
+									<!-- END Images -->
+								</div>
+								<div class="col-sm-6">
+									<!-- Vital Info -->
+									<div class="clearfix">
+										<div class="pull-right">
+											<span class="h2 font-w700 text-success ajax-price">0 &yen;</span>
+										</div>
+										<span class="h5">
+                                             <span class="font-w600 text-success">价格说明</span><br><small class="price-help">请选择</small>
+										</span>
+									</div>
+									<hr>
+									<form class="form-inline" action="{:url('index/TradeOrder/create')}" method="get">
+										<input type="hidden" name="goods_id" id="goods_id" value="{$goods_db['id']}" />
+										<ul class="ul-radio">
+											{foreach $goods_db['price_list'] as $vo}
+											<li class="li-radio">
+												<input class="js_price pull-left" type="radio" id="{$vo.id}" name="price_id" value="{$vo.id}" data-labelauty="{$vo.name}">
+											</li>
+											{/foreach}
+										</ul>
+										<button type="submit" class="btn btn-default btn-block js-btn" disabled="true">购买</button>
+									</form>
+									<hr>
+									<div style="word-wrap:break-word;">{$goods_db['description']}</div>
+									<!-- END Vital Info -->
+								</div>
+								<div class="col-xs-12">
+									<!-- Author -->
+									<div class="block block-rounded remove-margin-b">
+										<div class="block-content block-content-full bg-gray-lighter clearfix">
+
+											<div class="pull-left push-5-t">
+												<div class="h4 push-10">公告:</div>
+												<div>{$goods_db['app_db']['announcement']}</div>
+											</div>
+										</div>
+									</div>
+									<!-- END Author -->
+								</div>
+								<div class="col-xs-12">
+									<div class="block-content">
+										<div class="row">
+                                            <a type="submit" class="btn btn-primary" href="{$goods_db['app_db']['down_url']}" target="_blank">应用下载</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<!-- Extra Info -->
+									<div class="block">
+										<ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
+											<li class="active">
+												<a href="#ecom-product-info">详情</a>
+											</li>
+											<!--<li>
+												<a href="#ecom-product-comments">Comments</a>
+											</li>
+											<li>
+												<a href="#ecom-product-reviews">Reviews</a>
+											</li>-->
+										</ul>
+										<div class="block-content tab-content">
+											<!-- Info -->
+											<div class="tab-pane pull-r-l active" id="ecom-product-info">
+												{$goods_db['content']|raw}
+											</div>
+											<!-- END Info -->
+
+										</div>
+										<!-- END Reviews -->
+									</div>
+								</div>
+								<!-- END Extra Info -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END Product -->
+			</div>
+	</div>
+	</section>
+	</div>
+	<!-- END Side Content and Product -->
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"}
+<script src="__PLUGS__/jquery-labelauty/source/jquery-labelauty.js"></script>
+{/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"}
+<script>
+	$(document).ready(function() {
+		$(":radio").click(function() {
+			var price_id = $(this).attr('id');
+			getPrice(price_id);
+		});
+		$(".js_price").labelauty({
+
+			development: false,
+
+			class: "labelauty",
+
+			icon: true,
+
+			label: true,
+
+			separator: "|",
+
+			checked_label: "Checked",
+
+			unchecked_label: "Unchecked",
+
+			force_random_id: false,
+
+			minimum_width: false,
+
+			same_width: true
+		});
+	});
+
+	function getPrice(price_id) {
+		$.ajax({
+			type: "post",
+			url: '{:url(\'index/AppShop/getPrice\')}',
+			data: "price_id=" + price_id,
+			success: function(msg) {
+				$('.ajax-price').html(msg.price + ' &yen;');
+				$('.price-help').html(msg.info);
+				$('.js-btn').attr('class','btn btn-info btn-block js-btn');
+				$('.js-btn').removeAttr('disabled');
+			}
+		});
+	}
+</script>
+{/block}

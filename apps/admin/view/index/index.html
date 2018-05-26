@@ -1,0 +1,187 @@
+{extend name="base" /}
+{block name="plugcss"}
+<link rel="stylesheet" href="__ONEUI__/js/plugins/slick/slick.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/slick/slick-theme.min.css">
+{/block}        	
+{block name="css"}
+{/block}
+{block name="style"}
+{/block}
+{block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+<!-- Page Header -->
+	<div class="content bg-image overflow-hidden" style="background-image: url('__ONEUI__/img/photos/photo3@2x.jpg');">
+		<div class="push-50-t push-15">
+			<h1 class="h2 text-white animated zoomIn">仪表盘</h1>
+			<h2 class="h5 text-white-op animated zoomIn">欢迎 {$Think.session.user_auth.user_name} !</h2>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Stats -->
+	<div class="content bg-white border-b">
+		<div class="row items-push text-uppercase">
+			<div class="col-xs-6 col-sm-3">
+				<div class="font-w700 text-gray-darker animated fadeIn">新增用户</div>
+				<div class="text-muted animated fadeIn"><small><i class="si si-calendar"></i> 今天</small></div>
+				<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0);">{$todayuser['count']}</a>
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<div class="font-w700 text-gray-darker animated fadeIn">新增用户</div>
+				<div class="text-muted animated fadeIn"><small><i class="si si-calendar"></i> 本月</small></div>
+				<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0);">{$monthuser['count']}</a>
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<div class="font-w700 text-gray-darker animated fadeIn">总用户</div>
+				<div class="text-muted animated fadeIn"><small><i class="si si-calendar"></i> 所有时间</small></div>
+				<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0);"> {$usercount}</a>
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<div class="font-w700 text-gray-darker animated fadeIn">年度新增</div>
+				<div class="text-muted animated fadeIn"><small><i class="si si-calendar"></i> 所有时间</small></div>
+				<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0);"> {$yearuser['count']}</a>
+			</div>
+		</div>
+	</div>
+	<!-- END Stats -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<div class="row">
+			<div class="row">
+	<div class="col-lg-6">
+		<!-- Default Table -->
+		<div class="block">
+			<div class="block-header">
+				<div class="block-options">
+					<code>.sysinfo</code>
+				</div>
+				<h3 class="block-title">系统信息</h3>
+			</div>
+			<div class="block-content">
+				<table class="table">
+
+					<tbody>
+						<tr>
+							<td>商业授权版本</td>
+							<td id="product-auth">
+								<a class="label label-danger" href="http://www.rain68.com/" target="_blank">{$authinfo.author_type}</a>
+								<button class="btn btn-xs btn-warning js-ajax" url-data="{:url('admin/Index/reAuth')}" target="_blank">重新读取授权</button>
+							</td>
+						</tr>
+						<tr>
+							<td>Rain X版本</td>
+							<td id="product-update">{:config('rainos.version')}</td>
+						</tr>
+						<tr>
+							<td>TP版本内核</td>
+							<td>{$Think.VERSION}</td>
+						</tr>
+						<tr>
+							<td>服务器操作系统</td>
+							<td>{$Think.const.PHP_OS}</td>
+						</tr>
+						<tr>
+							<td>运行环境</td>
+							<td>{$Request.server.SERVER_SOFTWARE}</td>
+						</tr>
+						<tr>
+							<td>MYSQL版本</td>
+							<td>{:db()->query('select version() as version')[0]['version']}</td>
+						</tr>
+						<tr>
+							<td>PHP版本</td>
+							<td>{$Think.const.PHP_VERSION}</td>
+						</tr>
+						<tr>
+							<td>上传限制</td>
+							<td>{:ini_get('upload_max_filesize')}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END Default Table -->
+	</div>
+	<div class="col-lg-6">
+		<!-- Default Table -->
+		<div class="block">
+			<div class="block-header">
+				<div class="block-options">
+					<code>.product</code>
+				</div>
+				<h3 class="block-title">产品信息</h3>
+			</div>
+			<div class="block-content">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td>产品名称</td>
+							<td id="product-auth">
+								{:config('rainos.product_name')}
+							</td>
+						</tr>
+						<tr>
+							<td>设计及研发团队</td>
+							<td id="product-update">{:config('rainos.author')}</td>
+						</tr>
+						<tr>
+							<td>官方网址</td>
+							<td>{:config('rainos.website')}</td>
+						</tr>
+						<tr>
+							<td>联系QQ</td>
+							<td>
+								<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=80692285&site=qq&menu=yes">
+									<img border="0" src="http://wpa.qq.com/pa?p=2:80692285:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+								</a>
+
+							</td>
+						</tr>
+						<tr>
+							<td>邮箱</td>
+							<td>
+								{:config('rainos.email')}
+							</td>
+						</tr>
+						<tr>
+							<td>商业授权</td>
+							<td><a href="{:config('rainos.error_feedback')}">{:config('rainos.error_feedback')}</a></td>
+						</tr>
+						<tr>
+							<td>Rain</td>
+							<td><a href="{:config('rainos.error_feedback')}">{:config('rainos.error_feedback')}</a></td>
+						</tr>
+						<tr>
+							<td>赞助我们</td>
+							<td>
+								<code> 支付宝 : 3718217@qq.com </code>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END Default Table -->
+	</div>
+</div>
+			
+		</div>
+
+	</div>
+	
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->	
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/slick/slick.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+{/block}
+{block name="pagejs"}
+{/block}
+{block name="script"}
+{/block}
+	

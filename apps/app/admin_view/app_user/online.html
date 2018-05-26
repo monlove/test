@@ -1,0 +1,172 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" /> {/block} {block name="css"} {/block} {block name="style"}
+
+</style>
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<!-- Dynamic Table Full -->
+		<div class="block">
+			<div class="block-header">
+				<h3 class="block-title">{$actiondb['name']} - <span class="label label-primary user_count">{$count}</span></h3>
+
+			</div>
+
+			<div class="block-content">
+				<div id="toolbar">
+
+				</div>
+				<form class="forms" action="" method="post">
+					<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+					<table class="table table-bordered table-striped js-dataTable-full">
+						<thead>
+							<tr>
+								<th class="hidden-xs">ID</th>
+								<th class="hidden-xs">用户</th>
+								<th class="hidden-xs">应用</th>
+								<th class="hidden-xs">上线时间</th>
+								<th class="hidden-xs">连接IP</th>
+								<th class="hidden-xs">连接数</th>
+								<th class="" style="width: 15%;">操作</th>
+							</tr>
+						</thead>
+					</table>
+				</form>
+			</div>
+		</div>
+		<!-- END Dynamic Table Full -->
+	</div>
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+{/block} {block name="pagejs"}
+
+<script type="text/javascript" src="__JS__/user_app_online.js"></script>
+
+{/block} {block name="script"}
+<script type="text/javascript">
+	var sock_key = '{:$Think.config.site.magager_websorket_key}';
+	var userData = [];
+	iniTable(userData);
+
+	if(typeof console == "undefined") {
+		this.console = {
+			log: function(msg) {}
+		};
+	}
+	var ws, name, client_list = {};
+
+	function connect() {
+		// 创建websocket
+		ws = new WebSocket("ws://" + document.domain + ":5530");
+		// 当socket连接打开时，输入用户名
+		ws.onopen = onopen;
+		// 当有消息时根据消息类型显示不同信息
+		ws.onmessage = onmessage;
+		ws.onclose = function() {
+			console.log("连接关闭，定时重连");
+
+			connect();
+		};
+		ws.onerror = function() {
+			console.log("出现错误");
+		};
+	}
+	// 连接建立时发送登录信息
+	function onopen() {
+
+		//getDatas();
+	}
+
+	function toClose(user_id, app_id) {
+
+		var to_data = '{"data_type":"to_clost","websocket_key":"' + sock_key + '","uid":"' + user_id + ':' + app_id + '"}';
+		ws.send(to_data);
+		var table = $('.js-dataTable-full').DataTable();
+		table.ajax.reload(null, false);
+	}
+
+	// 服务端发来消息时
+	function onmessage(e) {
+
+		var data = eval("(" + e.data + ")");
+
+		switch(data['msg_type']) {
+			case 'user_list':
+				$('.user_count').text(data['user_count']);
+
+				userData = objToarr(data.user_data);
+				newInit(userData);
+
+		}
+	}
+
+	function getDatas() {
+		var login_data = '{"data_type":"manager","websocket_key":"' + sock_key + '"}';
+		console.log(login_data);
+		ws.send(login_data);
+	}
+
+	function iniTable(userData) {
+		BaseTableDatatables.init(userData);
+	}
+	connect();
+
+	function objToarr(datas) {
+		var arr = [];
+		for(var i in datas) {
+			var str = datas[i];
+			arr.push(str);
+		}
+		return arr;
+	}
+
+	function delTable() {
+		var table = $('.js-dataTable-full').DataTable();
+
+		$(".js-dataTable-full tbody").on("click", ".js-del", function() {
+
+			var trs = $(this).parents("tr").remove();
+			
+			console.log(trs);
+			
+
+		});
+	}
+	
+	function newInit(userData){
+		var table = $('.js-dataTable-full').DataTable();
+		table.clear().draw();
+		console.log(userData);
+		table.rows.add(userData).draw();
+	}
+</script>
+{/block}

@@ -1,0 +1,165 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css"> {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<h3 class="block-title">{$actiondb['name']}&nbsp;应用&nbsp;<code>{$appdb['name']}</code></h3>
+						</div>
+					</div>
+					<!-- END Step Tabs -->
+					<!-- Form -->
+					<form id="forms" class="js-form form-horizontal" action="{:url('admin/AppRechargeCard/inAdd')}" method="post">
+						<!-- Steps Content -->
+						<div class="block-content tab-content">
+							<!-- Step 1 -->
+							<input type="hidden" name="app_id" id="app_id" value="{$appdb['id']}" />
+							<div class="form-group">
+								<label class="col-sm-10 col-sm-offset-1" for="contact1-subject">卡类型</label>
+								<div class="col-sm-10 col-sm-offset-1">
+									<select class="js-select2 form-control" id="cardtype_subject" name="card_type_id" size="1">
+										{volist name="typelist" id="vo"}
+										<option value="{$vo.id}">{$vo.name}</option>
+										{/volist}
+									</select>
+								</div>
+
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1" for="contact1-subject">
+									<label for="title">卡前缀</label><span class="text-danger">*</span>
+									<input class="form-control" type="text" id="prefix" name="card_prefix" placeholder="卡前缀 如：Rain-">
+								</div>
+							</div>
+							<div class="js-cardtype-num help-block col-sm-10 col-sm-offset-1"></div>
+							<div class="form-group">
+								<label class="col-sm-10 col-sm-offset-1" for="contact1-subject">生成数量</label>
+								<div class="col-sm-10 col-sm-offset-1">
+									<select class="js-select2 form-control" id="contact1-subject" name="create_num" size="1">
+										<option value="1">1</option>
+										<option value="10" selected="">10</option>
+										<option value="20">20</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-comment">备注</label>
+									<textarea class="form-control" id="app-comment" name="comment" rows="3" placeholder="Rain OS"></textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"></div>
+							</div>
+							<!-- END Step 1 -->
+						</div>
+						<!-- END Steps Content -->
+
+						<!-- Steps Navigation -->
+						<div id="subbox" class="block-content block-content-mini block-content-full border-t">
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<button class="btn btn-primary" id="subs" type="submit"><i class="fa fa-check"></i> 提交</button>
+								</div>
+								<div class="col-xs-6 text-right">
+									<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+								</div>
+							</div>
+						</div>
+						<!-- END Steps Navigation -->
+					</form>
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+<!-- Pop In Modal -->
+<div class="modal fade" id="myModalId" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-popin">
+		<div class="modal-content">
+			<div class="block block-themed block-transparent remove-margin-b">
+				<div class="block-header bg-primary-dark">
+					<ul class="block-options">
+						<li>
+							<button class="copy copy_card" type="button"><i class="fa fa-copy"></i></button>
+						</li>
+						<li>
+							<button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+						</li>
+					</ul>
+					<h3 class="block-title">{$actiondb['name']} &amp; 新生成卡列表</h3>
+				</div>
+				<div class="block-content card-lists text-center">
+					<!--<p>.</p>
+					<p>.</p>-->
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">关闭</button>
+				<button class="btn btn-sm btn-primary" type="button" data-dismiss="modal"><i class="fa fa-check"></i> 确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END Pop In Modal -->
+{/block} {block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+<script src="__PLUGS__/clipboard/dist/clipboard.min.js"></script>
+{/block} {block name="pagejs"}
+<script src="__JS__/app_timing_card_add.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+	var global_public = '__PUBLIC__';
+	copyTools();
+</script>
+{/block}

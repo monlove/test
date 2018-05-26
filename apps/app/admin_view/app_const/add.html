@@ -1,0 +1,152 @@
+{extend name="./apps/admin/view/base.html" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css"/>
+{/block}
+{block name="css"}
+{/block} 
+{block name="style"}
+<style type="text/css">
+.dataTables_info {
+	float: left;
+	display: inline;
+}
+
+.dataTables_length {
+	float: left;
+	display: inline;
+	padding-top: 0px;
+}
+
+.table>thead>tr>td{
+	border-bottom: 1px solid #ddd !important;
+} 
+</style>
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<!-- Simple Wizards -->
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="block">
+					<div class="block-header">
+						<ul class="block-options">
+							<li>
+								<button type="button"><i class="si si-settings"></i></button>
+							</li>
+						</ul>
+						<h3 class="block-title">添加 APP <code>{$appdb['name']}</code> 常量数据</h3>
+					</div>
+					<div class="block-content block-content-narrow">
+						<form class="js-form" action="{:url('admin/AppConst/inAdd')}" method="post" onsubmit="return false;">
+							<input type="hidden" name="app_id" id="app_id" value="{$appdb['id']}" />
+							<div class="form-group">
+								<label for="example-nf-email">名称</label>
+								<input class="form-control" type="text" name="name" placeholder="名称">
+							</div>							
+							<div class="form-group">								
+								<label for="bind">授权</label>
+								<div class="col-lg-12" style="padding-left: 0px;">
+									<label class="css-input switch switch-sm switch-primary push-20-r">
+                                        <input type="checkbox" name="auth_status" checked=""><span></span>是否必须授权
+                                    </label>
+								</div>
+								<div class="help-block">打开授权    用户必须验证通过才可读取</div>
+							</div>
+							<div class="form-group">
+								<label for="example-nf-password">常量名</label>
+								<input class="form-control" type="text" name="const" placeholder="常量名">
+							</div>
+							<div class="form-group">
+								<label for="example-nf-password">常量值</label>
+								<input class="form-control" type="text" id="value" name="value" placeholder="常量值">
+							</div>
+							<div class="form-group">
+								<button class="btn btn-sm btn-primary js-sub" type="submit">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+			<div class="col-lg-7">
+				<!-- Default Table -->
+				<div class="block">
+					<div class="block-header">
+						<div class="block-options">
+							<code>.{$appdb['name']}</code>
+						</div>
+						<h3 class="block-title">常量列表</h3>
+					</div>
+					<div class="block-content">
+						<table class="table table-striped table-borderless js-dataTable-full">
+							<thead>
+								<tr>
+									<td class="text-center">ID</td>
+									<th class="" style="width: 15%;">名称</th>
+									<th style="width: 20%;">常量名</th>
+									<th class="hidden-xs">常量值</th>
+									<th class="hidden-xs">状态</th>
+									<th class="text-center" style="width: 100px;">操作</th>
+								</tr>
+							</thead>							
+						</table>
+					</div>
+				</div>
+				<!-- END Default Table -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block} 
+{block name="pagejs"}
+<script src="__JS__/app_const_add.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+var global_public='__PUBLIC__';	
+</script>
+{/block}

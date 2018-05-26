@@ -1,0 +1,263 @@
+{extend name="base" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css"> {/block} {block name="css"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/jquery-nestable/jquery.nestable.css" /> {/block} {block name="style"}
+<style type="text/css">
+	.margin-bottom-1 {
+		margin-bottom: 1px !important;
+	}
+</style>
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                    {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block">
+					<div class="js-wizard-simple margin-bottom-1 block">
+						<ul class="nav nav-tabs nav-justified">
+							{foreach name="menu" item="po"} {eq name="$po.parent_id" value="0"}
+							<li {eq name="$po.id" value="1" }class="active" {/eq}>
+								<a href="#simple-classic-step{$po.id}" data-toggle="tab">{$po.name}</a>
+							</li>
+							{/eq} {/foreach}
+						</ul>
+					</div>
+					<div class="block-content tab-content">
+						{volist name="menu" id="ao"} {if condition="($ao.parent_id === 0)"}
+						<div class="tab-pane push-20 {eq name=" $ao.id " value="1 "}active{/eq}" id="simple-classic-step{$ao.id}">
+							<div class="tab-pane active">
+								{notempty name="menu"}
+								<div class="row data-table-toolbar">
+									<div class="col-sm-12">
+										<form action="#" method="get">
+											<div class="toolbar-btn-action">
+												<a title="新增" class="btn btn-primary" href="{:url('admin/Menu/add')}"><i class="fa fa-plus-circle"></i> 新增</a>
+												<button title="保存" type="submit" class="btn btn-success ajax-post" target-form="order-form">保存排序</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="dd menu_list">
+									<ol class="dd-list">
+										<li class="dd-item dd3-item " data-id="{$ao.id}">
+											<div class="dd-handle dd3-handle">拖拽</div>
+											<div class="dd3-content"><i class="{$ao.icon}"></i> {$ao.name}<span class="link"><i class="fa fa-link"></i> {$ao.node}</span>
+												<div class="action">
+													<a href="/admin.php/admin/menu/add/module/admin/pid/1.html" data-toggle="tooltip" data-original-title="新增子节点"><i class="list-icon fa fa-plus fa-fw"></i></a>
+													<a href="/admin.php/admin/menu/edit/id/1.html" data-toggle="tooltip" data-original-title="编辑"><i class="list-icon fa fa-pencil fa-fw"></i></a>
+													<a href="javascript:void(0);" data-ids="1" class="disable" data-toggle="tooltip" data-original-title="禁用"><i class="list-icon fa fa-ban fa-fw"></i></a>
+													<a href="/admin.php/admin/menu/delete/id/1/table/admin_menu.html" data-toggle="tooltip" data-original-title="删除" class="ajax-get confirm"><i class="list-icon fa fa-times fa-fw"></i></a>
+													<input type="hidden" name="order[]" value="{$key}">
+												</div>
+											</div>
+											
+											<ol class="dd-list">
+												{volist name="menu" id="bo"} {if condition="($bo.parent_id === $ao.id)"}
+												<li class="dd-item dd3-item " data-id="{$ao.id}">
+													<div class="dd-handle dd3-handle">拖拽</div>
+													<div class="dd3-content"><i class="{$bo.icon}"></i> {$bo.name}<span class="link"><i class="fa fa-link"></i> {$bo.node}</span>
+														<div class="action">
+															<a href="/admin.php/admin/menu/add/module/admin/pid/1.html" data-toggle="tooltip" data-original-title="新增子节点"><i class="list-icon fa fa-plus fa-fw"></i></a>
+															<a href="/admin.php/admin/menu/edit/id/1.html" data-toggle="tooltip" data-original-title="编辑"><i class="list-icon fa fa-pencil fa-fw"></i></a>
+															<a href="javascript:void(0);" data-ids="1" class="disable" data-toggle="tooltip" data-original-title="禁用"><i class="list-icon fa fa-ban fa-fw"></i></a>
+															<a href="/admin.php/admin/menu/delete/id/1/table/admin_menu.html" data-toggle="tooltip" data-original-title="删除" class="ajax-get confirm"><i class="list-icon fa fa-times fa-fw"></i></a>
+															<input type="hidden" name="order[]" value="{$key}">
+														</div>
+													</div>
+													
+													<ol class="dd-list">
+														{volist name="menu" id="co"} {if condition="($co.parent_id === $bo.id)"}
+														<li class="dd-item dd3-item " data-id="{$ao.id}">
+															<div class="dd-handle dd3-handle">拖拽</div>
+															<div class="dd3-content"><i class="{$co.icon}"></i> {$co.name}<span class="link"><i class="fa fa-link"></i> {$co.node}</span>
+																<div class="action">
+																	<a href="/admin.php/admin/menu/add/module/admin/pid/1.html" data-toggle="tooltip" data-original-title="新增子节点"><i class="list-icon fa fa-plus fa-fw"></i></a>
+																	<a href="/admin.php/admin/menu/edit/id/1.html" data-toggle="tooltip" data-original-title="编辑"><i class="list-icon fa fa-pencil fa-fw"></i></a>
+																	<a href="javascript:void(0);" data-ids="1" class="disable" data-toggle="tooltip" data-original-title="禁用"><i class="list-icon fa fa-ban fa-fw"></i></a>
+																	<a href="/admin.php/admin/menu/delete/id/1/table/admin_menu.html" data-toggle="tooltip" data-original-title="删除" class="ajax-get confirm"><i class="list-icon fa fa-times fa-fw"></i></a>
+																	<input type="hidden" name="order[]" value="{$key}">
+																</div>
+															</div>
+														</li>
+														{/if} {/volist}
+													</ol>
+													
+												</li>
+												{/if} {/volist}
+											</ol>
+											
+										</li>
+									</ol>
+								</div>
+								{/notempty}
+							</div>
+						</div>
+						{/if} {/volist}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+<script src="__ONEUI__/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="__ONEUI__/js/plugins/dropzonejs/dropzone.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+
+{/block} {block name="pagejs"}
+<script src="__PLUGS__/jquery-nestable/jquery.nestable.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+{/block} {block name="script"}
+<script>
+	$(document).ready(function() {
+		// 模块拖拽
+		$("#sortable").sortable({
+			connectWith: ".connectedSortable"
+		}).disableSelection();
+
+		// 保存节点
+		$('#save').click(function() {
+			Dolphin.loading();
+			$.post("/admin.php/admin/menu/save.html", {
+				menus: $('#menu_list').nestable('serialize')
+			}, function(data) {
+				Dolphin.loading('hide');
+				if(data.code) {
+					$('#save').removeClass('btn-success').addClass('btn-default disabled');
+					Dolphin.notify(data.msg, 'success');
+				} else {
+					Dolphin.notify(data.msg, 'danger');
+				}
+			});
+		});
+
+		// 初始化节点拖拽
+		$('.menu_list').nestable({
+			maxDepth: 4
+		}).on('change', function() {
+			$('#save').removeAttr("disabled").removeClass('btn-default disabled').addClass('btn-success');
+		});
+
+		// 隐藏禁用节点
+		$('#hide_disable').click(function() {
+			$('.dd-disable').hide();
+		});
+
+		// 显示禁用节点
+		$('#show_disable').click(function() {
+			$('.dd-disable').show();
+		});
+
+		// 展开所有节点
+		$('#expand-all').click(function() {
+			$('#menu_list').nestable('expandAll');
+		});
+
+		// 收起所有节点
+		$('#collapse-all').click(function() {
+			$('#menu_list').nestable('collapseAll');
+		});
+
+		// 禁用节点
+		$('.dd3-content').delegate('.disable', 'click', function() {
+			var self = $(this);
+			var ids = self.data('ids');
+			var ajax_url = '/admin/menu/disable/table/admin_menu.html';
+			Dolphin.loading();
+			$.post(ajax_url, {
+				ids: ids
+			}, function(data) {
+				Dolphin.loading('hide');
+				if(data.code) {
+					self.attr('data-original-title', '启用').removeClass('disable').addClass('enable')
+						.children().removeClass('fa-ban').addClass('fa-check-circle-o')
+						.closest('.dd-item')
+						.addClass('dd-disable');
+				} else {
+					Dolphin.notify(data.msg, 'danger');
+				}
+			});
+			return false;
+		});
+
+		// 启用节点
+		$('.dd3-content').delegate('.enable', 'click', function() {
+			var self = $(this);
+			var ids = self.data('ids');
+			var ajax_url = '/admin.php/admin/menu/enable/table/admin_menu.html';
+			Dolphin.loading();
+			$.post(ajax_url, {
+				ids: ids
+			}, function(data) {
+				Dolphin.loading('hide');
+				if(data.code) {
+					self.attr('data-original-title', '禁用').removeClass('enable').addClass('disable')
+						.children().removeClass('fa-check-circle-o').addClass('fa-ban')
+						.closest('.dd-item')
+						.removeClass('dd-disable');
+				} else {
+					Dolphin.notify(data.msg, 'danger');
+				}
+			});
+			return false;
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$("#delimgs").click(function() {
+		$('#divimg').remove();
+		$('#imgs').val('');
+	});
+</script>
+{/block}

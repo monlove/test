@@ -1,0 +1,162 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+<link rel="stylesheet" type="text/css" href="__PLUGS__/jquery-nestable/jquery.nestable.css" /> {/block} {block name="css"} {/block} {block name="style"}
+<style type="text/css">
+
+</style>
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="block">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#">菜单</a>
+						</li>
+						<li class="pull-right">
+							<ul class="block-options push-10-t push-10-r">
+								<li>
+									<button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+								</li>
+								<li>
+									<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+								</li>
+								<li>
+									<button type="button" data-toggle="block-option" data-action="content_toggle"></button>
+								</li>
+								<li>
+									<button type="button" data-toggle="block-option" data-action="close"><i class="si si-close"></i></button>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<div class="block-content tab-content">
+						<div class="tab-pane active">
+							<div class="row data-table-toolbar">
+								<div class="col-sm-12">
+									<form action="" method="get">
+										<div class="toolbar-btn-action">
+											<a title="新增" class="btn btn-primary" href="add.html"><i class="fa fa-plus-circle"></i> 新增</a>
+											<button title="保存" type="button" class="btn btn-default disabled" id="save" disabled><i class="fa fa-check-circle-o"></i> 保存菜单</button>
+										</div>
+									</form>
+								</div>
+							</div>
+
+							<div class="dd" id="menu_list">
+
+								{if condition="$nav_list == true"}
+								<ol class="dd-list">
+									{foreach $nav_list as $ao} {eq name="$ao.parent_id" value="0"}
+
+									<li class="dd-item dd3-item " data-id="{$ao.id}">
+										<div class="dd-handle dd3-handle">拖拽</div>
+										<div class="dd3-content"><i class="{$ao.icon}"></i> {$ao.name}<span class="link"><i class="fa fa-link"></i> {$ao.url}</span>
+											<div class="action">											
+												<a href="edit.html?id={$ao.id}" data-toggle="tooltip" data-original-title="编辑"><i class="list-icon fa fa-pencil fa-fw"></i></a>
+												<a href="delete.html?id={$ao.id}" data-toggle="tooltip" data-original-title="删除" class="ajax-get confirm"><i class="list-icon fa fa-times fa-fw"></i></a>
+											</div>
+										</div>
+										{foreach $nav_list as $bo} {eq name="$bo.parent_id" value="$ao.id"}
+										<ol class="dd-list">
+											<li class="dd-item dd3-item " data-id="{$bo.id}">
+												<div class="dd-handle dd3-handle">拖拽</div>
+												<div class="dd3-content"><i class="{$bo.icon}"></i> {$bo.name}<span class="link"><i class="fa fa-link"></i> {$bo.url}</span>
+													<div class="action">
+														<a href="edit.html?id={$bo.id}" data-toggle="tooltip" data-original-title="编辑"><i class="list-icon fa fa-pencil fa-fw"></i></a>
+														<a href="delete.html?id={$bo.id}" data-toggle="tooltip" data-original-title="删除" class="ajax-get confirm"><i class="list-icon fa fa-times fa-fw"></i></a>
+													</div>
+												</div>
+												{foreach $nav_list as $co} {eq name="$co.parent_id" value="$bo.id"}
+												<ol class="dd-list">
+													<li class="dd-item dd3-item " data-id="{$co.id}">
+														<div class="dd-handle dd3-handle">拖拽</div>
+														<div class="dd3-content"><i class="{$co.icon}"></i> {$co.name}<span class="link"><i class="fa fa-link"></i> {$co.url}</span>
+															<div class="action">
+																<a href="edit.html?id={$co.id}" data-toggle="tooltip" data-original-title="编辑"><i class="list-icon fa fa-pencil fa-fw"></i></a>
+																<a href="delete.html?id={$co.id}" data-toggle="tooltip" data-original-title="删除" class="ajax-get confirm"><i class="list-icon fa fa-times fa-fw"></i></a>
+															</div>
+														</div>
+													</li>
+												</ol>
+												{/eq} {/foreach}
+											</li>
+										</ol>
+										{/eq} {/foreach}
+									</li>
+									{/eq} {/foreach}
+								</ol>
+								{/if}
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- END Dynamic Table Full -->
+			</div>
+		</div>
+	</div>
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+<script src="__ONEUI__/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="__ONEUI__/js/plugins/dropzonejs/dropzone.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/jquery-nestable/jquery.nestable.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+{/block} {block name="pagejs"}
+<script src="__JS__/page_nav.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+</script>
+
+{/block}

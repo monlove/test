@@ -1,0 +1,153 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css"> {/block} {block name="css"}
+<style type="text/css">
+
+</style>
+{/block} {block name="style"} {/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<!-- New Topic -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<ul class="block-options">
+								<li>
+									<button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+								</li>
+								<li>
+									<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+								</li>
+							</ul>
+							<h3 class="block-title"><i class="fa fa-plus"></i> {$actiondb['name']}</h3>
+						</div>
+						<div class="block-content block-content-full block-content-narrow-5">
+							<form class="js-goods form-horizontal push-10-t" action="{:url('admin/AppGoods/inedit')}" method="post" onsubmit="return false;">
+								<input type="hidden" name="goods_id" id="app_id" value="{$goods_db['id']}" />
+								<div class="form-group">
+									<div class="col-sm-12">
+										<label for="app-name">应用名称</label>
+										<input class="form-control" type="text" id="example-disabled-input" name="example-disabled-input" placeholder="{$goods_db['app_name']}" disabled="">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-12">
+										<label for="title">商品标题</label><span class="text-danger">*</span>
+										<input class="form-control" type="text" id="title" name="title" value="{$goods_db['title']}" placeholder="商品标题">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-12">
+										<label for="title">副标题</label><span class="text-danger">*</span>
+										<input class="form-control" type="text" id="alias" name="alias" value="{$goods_db['alias']}" placeholder="副标题">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-12">
+										<label for="description">简介</label><span class="text-danger"></span>
+										<textarea class="form-control" type="text" id="description" name="description" rows="4" placeholder="简介">{$goods_db['description']}</textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-12">
+										<label for="sapp-icon">应用图</label>
+										<input class="form-control" type="text" id="js-img" name="featured_image" value="{$goods_db['featured_image']}" placeholder="">
+										<div class="help-block">选择一张图片为商品页面展示图</div>
+										<div id="uploader-btn">
+											<!--用来存放item-->
+											<div id="fileList" class="uploader-list">
+												{notempty name="$goods_db['featured_image']"}
+											    <div id="divimg" class="file-item thumbnail" style=""><img id="imgid" src="{$goods_db['featured_image']}"></div>
+											    {/notempty}	
+											</div>
+											<!--<button type="button" id="delimgs" class="btn btn-default pull-right">清除</button>-->
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="pull-left" id="filePicker">选择图片</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-xs-12">
+										<label for="description">内容</label><span class="text-danger"></span>
+										<textarea class="form-control js-ckeditor" type="text" id="ckeditor" name="content">{$goods_db['content']}</textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-xs-12">
+										<!--<button class="btn btn-default" type="button"><i class="fa fa-floppy-o"></i> 保存草稿</button>-->
+										<button class="btn btn-primary js-goods-sub" type="submit"><i class="fa fa-plus"></i> 编辑</button>
+										<!--<button class="btn btn-sm btn-default" type="button"><i class="fa fa-eye"></i> Preview</button>-->
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- END New Topic -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+<script src="__ONEUI__/js/plugins/ckeditor/ckeditor.js"></script>
+{/block} {block name="pagejs"}
+<script src="__JS__/goods_add.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+	jQuery(function() {
+		// Init page helpers (CKEditor + Select2 + Tags Inputs plugins)
+		App.initHelpers(['select2', 'tags-inputs']);
+		imgUpload();
+		initCkeditor();
+	})
+</script>
+{/block}

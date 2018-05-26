@@ -1,0 +1,82 @@
+{extend name="./apps/admin/view/base.html" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">  
+{/block}
+{block name="css"}   
+{/block}
+{block name="style"}
+<style type="text/css">
+
+</style>
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+    {:themehook($themedb['class'],'themeconfig',$themedb)}
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+<script src="__ONEUI__/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="__ONEUI__/js/plugins/dropzonejs/dropzone.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block}
+{block name="pagejs"}
+<script src="__ONEUI__/js/pages/base_forms_pickers_more.js"></script>
+<script src="__ONEUI__/js/pages/base_forms_wizard.js"></script>
+<script src="__JS__/theme_config_index.js"></script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	var global_public='__PUBLIC__';
+    var global_root='__ROOT__';
+    var user_auth = '{:$Think.session.user_auth.user_name}';	
+</script>
+
+{/block}
+

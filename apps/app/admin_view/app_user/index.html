@@ -1,0 +1,85 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" /> {/block} {block name="css"} {/block} {block name="style"}
+<style type="text/css">
+
+</style>
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<!-- Dynamic Table Full -->
+		<div class="row">
+			{foreach $app_list as $vo}
+			<div class="col-lg-3">
+				<div class="block">
+					
+					<div class="bg-city-dark ribbon ribbon-bookmark ribbon-crystal ribbon-right">
+						<div class="ribbon-box font-w600"><i class="fa fa-check"></i> {$vo['use_way']['title']}</div>
+						<div class="bg-black-op">							
+							<div class="block-content block-content-full text-center">
+								<a href="userApp?option=all&app_id={$vo.id}">
+								<i class="si fa-4x si-drop text-warning push-30-t"></i>
+								<h3 class="h4 text-uppercase text-white push-30-t push-5">{$vo['name']}</h3>
+								<h4 class="h5 text-white-op push-20">{$vo['create_time']}</h4>
+								</a>
+							</div>
+							
+						</div>
+					</div>
+					<div class="block-content block-content-full">
+						<div class="row text-center">
+							<div class="col-xs-6">
+								<a href="userApp?option=active&app_id={$vo.id}">
+								<div class="h2 font-w300">{$vo['active']}</div>
+								<div class="h5 text-muted push-5-t">已激活</div>
+								</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="userApp?option=expire&app_id={$vo.id}">
+								<div class="h2 font-w300">{$vo['expire']}</div>
+								<div class="h5 text-muted push-5-t">已过期</div>
+								</a>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		<!-- END Dynamic Table Full -->
+	</div>
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+{/block} {block name="pagejs"}
+<script type="text/javascript" src="__JS__/app_price.js"></script>
+{/block} {block name="script"}
+
+{/block}

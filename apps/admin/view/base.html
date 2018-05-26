@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+
+        <title>Rain - Admin Dashboard Rain UI &amp; UI Framework</title>
+
+        <meta name="description" content="OneUI - Admin Dashboard Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="__STATIC__/__ONEUI__/img/favicons/favicon.png">
+
+        <!-- END Icons -->
+
+        <!-- Stylesheets -->
+        <!-- Web fonts -->
+
+        <!-- Page JS Plugins CSS -->
+        {block name="plugcss"}
+        plugcss
+        {/block}
+
+        <!-- Bootstrap and OneUI CSS framework -->
+        <link rel="stylesheet" href="__ONEUI__/css/bootstrap.min.css">
+        <link rel="stylesheet" id="css-main" href="__ONEUI__/css/oneui.css">
+        
+        {block name="css"}
+        css
+        {/block}
+        <link rel="stylesheet" href="__CSS__/style.css">
+        {block name="style"}
+        style
+        {/block}
+        <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+        <!-- <link rel="stylesheet" id="css-theme" href="__ONEUI__/css/themes/flat.min.css"> -->
+        <!-- END Stylesheets -->
+    </head>
+    <body>
+        <!-- Page Container -->
+        <!--
+            Available Classes:
+
+            'enable-cookies'             Remembers active color theme between pages (when set through color theme list)
+
+            'sidebar-l'                  Left Sidebar and right Side Overlay
+            'sidebar-r'                  Right Sidebar and left Side Overlay
+            'sidebar-mini'               Mini hoverable Sidebar (> 991px)
+            'sidebar-o'                  Visible Sidebar by default (> 991px)
+            'sidebar-o-xs'               Visible Sidebar by default (< 992px)
+
+            'side-overlay-hover'         Hoverable Side Overlay (> 991px)
+            'side-overlay-o'             Visible Side Overlay by default (> 991px)
+
+            'side-scroll'                Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (> 991px)
+
+            'header-navbar-fixed'        Enables fixed header
+        -->
+        <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+            {include file="./apps/admin/view/public/aside.html" /}
+            {include file="./apps/admin/view/public/nav.html" /}
+            {include file="./apps/admin/view/public/header.html" /}
+	        {block name="main"}main{/block}
+
+            {include file="./apps/admin/view/public/footer.html" /}
+   
+        </div>
+        <!-- END Page Container -->
+        {include file="./apps/admin/view/public/appmodal.html" /}
+        
+        
+        
+        <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+        <script src="__PUBLIC__/min/?g=core_js"></script>
+        <!--<script src="__ONEUI__/js/core/jquery.min.js"></script>
+        <script src="__ONEUI__/js/core/bootstrap.min.js"></script>
+        <script src="__ONEUI__/js/core/jquery.slimscroll.min.js"></script>
+        <script src="__ONEUI__/js/core/jquery.scrollLock.min.js"></script>
+        <script src="__ONEUI__/js/core/jquery.appear.min.js"></script>
+        <script src="__ONEUI__/js/core/jquery.countTo.min.js"></script>
+        <script src="__ONEUI__/js/core/jquery.placeholder.min.js"></script>
+        <script src="__ONEUI__/js/core/js.cookie.min.js"></script>
+        <script src="__ONEUI__/js/app.js"></script>
+        <script src="__JS__/rain_admin.js"></script>-->
+
+        <!-- Page Plugins -->
+        {block name="plugjs"}
+        plugjs
+        {/block}
+        <!-- Page JS Code -->
+        {block name="pagejs"}
+        pagejs
+        {/block}
+        {block name="script"}
+        script
+        {/block}
+        <script>
+        	var global_public = '__PUBLIC__';
+        	var global_root = '__ROOT__';
+        	var user_auth = '{:$Think.session.user_auth.user_name}';
+            jQuery(function () {
+                // Init page helpers (Slick Slider plugin)
+                App.initHelpers('slick');                
+                $(".slimScrollBar").css("display","none");
+                $('table').attr('style','width:100%');
+            });
+        </script>
+    </body>
+</html>

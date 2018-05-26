@@ -1,0 +1,149 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+{/block}
+{block name="css"}
+<style type="text/css">
+
+</style>
+{/block} 
+{block name="style"}
+
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<!-- New Topic -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<ul class="block-options">
+								<li>
+									<button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+								</li>
+								<li>
+									<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+								</li>
+							</ul>
+							<h3 class="block-title"><i class="fa fa-plus"></i> {$actiondb['name']}</h3>
+						</div>
+						<div class="block-content block-content-full block-content-narrow-5">
+							<form class="js-forms form-horizontal push-10-t" action="{:url('admin/PageNav/inadd')}" method="post" onsubmit="return false;">
+								<div class="form-group">
+									<label class="col-xs-12" for="example-select">上级菜单</label>
+									<div class="col-xs-12">
+								        <select class="js-select2 form-control" id="example-select" name="parent_id" size="1">
+                                            <option value="0">顶级</option>
+                                            {foreach $nav_list as $vo}
+                                            <option value="{$vo.id}">{$vo.name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>            
+								</div>
+								
+								<div class="form-group js-select">
+									<label class="col-xs-12" for="example-select">菜单类型<span class="text-danger">*</span></label>
+									<div class="col-xs-12">
+								        <select class="js-select2 form-control" id="select_type" name="type" size="1">
+                                            {foreach $Think.config.menu_type.menu_type as $vo}
+                                            <option value="{$vo.name}">{$vo.value}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                    <div class="help-block col-xs-12"><code>*</code>菜单类型可以是<code>独立页面</code> , <code>分类目录</code>或<code>URL链接地址</code></div>
+								</div>
+                                <!--html插入点-->
+								<div class="form-group">
+									<div class="col-xs-12">
+										<label for="alias">菜单标题</label><span class="text-danger">*</span>
+										<input class="form-control" type="text" id="alias" name="alias">
+									</div>
+								</div>
+								<div class="help-block col-xs-12">必填项目</div>
+								<div class="form-group">
+									<div class="col-xs-12">
+										<label for="name">图标</label>
+										<div class="input-group js-icon-picker">
+                                            <span class="input-group-addon icon" data-placement="bottom"><i class="fa fa-fw fa-plus-circle"></i></span>
+                                            <input class="form-control icon_input" type="text" id="icon" name="icon" placeholder="icon">
+                                            <span class="input-group-addon delete-icon"><i class="fa fa-remove"></i></span>        	
+                                        </div>
+									</div>									
+									<div class="help-block col-xs-12">Font Awesome图标 官网：<a href="http://fontawesome.dashgame.com/">http://fontawesome.dashgame.com/</a></div>
+								</div>															
+								<div class="form-group">
+									<div class="col-xs-12">
+										<a href="index.html" class="btn btn-default" type="button"><i class="si si-action-undo"></i> 返回</a>
+										<!--<button class="btn btn-default" type="button"><i class="fa fa-floppy-o"></i> 保存草稿</button>-->
+										<button class="btn btn-primary js-page-sub" id="sub" type="submit"><i class="fa fa-plus"></i> 添加</button>																				
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- END New Topic -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		{include file="./apps/admin/view/public/icon.html" /}				
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+<script src="__ONEUI__/js/pages/base_ui_activity.js"></script>
+{/block} 
+{block name="pagejs"}
+<script src="__JS__/nav_add.js"></script> 
+{/block} {block name="script"}
+<script type="text/javascript">
+jQuery(function () {
+    // Init page helpers (CKEditor + Select2 + Tags Inputs plugins)
+    App.initHelpers(['select2', 'tags-inputs']);
+})
+</script>
+{/block}

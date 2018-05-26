@@ -1,0 +1,84 @@
+{extend name="./theme/defaults/base.html" /} {block name="plugcss"} {/block} {block name="css"}
+<link rel="stylesheet" href="__ONEUI__/js/plugins/magnific-popup/magnific-popup.min.css"> {/block} {block name="style"} {/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-image" style="background-image: url('__ONEUI__/img/photos/photo{:rand(1,39)}@2x.jpg');">
+		<div class="bg-primary-op">
+			<section class="content content-full content-boxed overflow-hidden">
+				<!-- Section Content -->
+				<div class="push-150-t push-150 text-center">
+					<h1 class="text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown"> {$post_data['title']}</h1>
+					<h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$post_data['alias']}</h2>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Hero Content -->
+
+	<!-- Story Content -->
+	<div class="bg-white">
+		<section class="content content-boxed">
+			<!-- Section Content -->
+			<div class="text-center">
+				<a class="link-effect font-s13 font-w600" href="javascript:void(0)">{$post_data['author']}</a> on {$post_data['create_time']} &bull; <em> <i class="si si-eye"></i> {$post_data['access_num']}</em>
+			</div>
+			<div class="row push-50-t push-50 nice-copy-story">
+				<div class="col-sm-10 col-sm-offset-1">
+                    {$post_data['content']|raw}
+					<!-- Actions -->
+					<div class="push-50-t clearfix">
+						<div class="btn-toolbar pull-right">
+							<a class="btn btn-default" data-toggle="tooltip" title="赞一个" href="javascript:void(0)"><i class="fa fa-thumbs-o-up"></i> {$post_data['like']}</a>
+							<div class="btn-group dropup">
+								<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><i class="fa fa-share-alt"></i> 分享</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<a tabindex="-1" href="javascript:void(0)"><i class="fa fa-fw fa-qq pull-right"></i> QQ</a>
+									</li>
+									<li>
+										<a tabindex="-1" href="javascript:void(0)"><i class="fa fa-fw fa-weixin pull-right"></i> 微信</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+                       <!--<a class="btn btn-warning" href="javascript:void(0)"><i class="fa fa-heart push-5-r"></i> 推荐</a>-->
+					</div>
+					<!-- END Actions -->
+				</div>
+			</div>
+			<!-- END Section Content -->
+		</section>
+	</div>
+	<!-- END Story Content -->
+
+	<!-- More Stories -->
+	<section class="content content-boxed">
+		<!-- Section Content -->
+		<div class="row push-30-t push-30">
+			{volist name='post_top' id='vo'}
+			<div class="col-sm-4">
+				<a class="block block-link-hover2" href="{$vo.url}">
+					<div class="block-content bg-image" style="background-image: url('{$vo.featured_image}');">
+						<h4 class="text-white push-50-t push">{$vo.title|mb_substr=0,16,'utf-8'}</h4>
+					</div>
+					<div class="block-content block-content-full font-s12">
+						<em class="pull-right"> <i class="si si-eye"></i> {$vo.access_num}</em>
+						<span class="text-primary">{$vo.author|mb_substr=0,16,'utf-8'}</span> {$vo.create_time}
+					</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+		<!-- END Section Content -->
+	</section>
+	<!-- END More Stories -->
+</main>
+<!-- END Main Container -->
+
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"} {/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"} {/block}

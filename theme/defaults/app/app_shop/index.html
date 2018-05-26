@@ -1,0 +1,174 @@
+{extend name="./theme/defaults/base.html" /} {block name="plugcss"} {/block} {block name="css"} {/block} {block name="style"}
+<style type="text/css">
+	.img-container{
+		height: 212px;
+	}
+</style>
+{/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-image" style="background-image: url('__IMG__/shop/appshop1.jpg');">
+		<div class="bg-primary-dark-op">
+			<section class="content content-full content-boxed overflow-hidden">
+				<!-- Section Content -->
+				<div class="push-30-t push-30 text-center">
+					<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$themedb['data']['site_title']} - {$page_data['title']}</h1>
+					<h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$themedb['data']['site_description']}.</h2>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Hero Content -->
+
+	<!-- Products -->
+	<div class="bg-gray-lighter">
+		<section class="content content-boxed">
+			<!-- New Arrivals -->
+			<h3 class="font-w400 text-black push-30-t push-20">新品推荐</h3>
+			<div class="row">
+                {volist name="$goods_list.new" id="vo" offset="0" length='4'}
+				<div class="col-sm-6 col-lg-3">
+					<div class="block">
+						<div class="img-container">
+							<img class="img-responsive" src="{notempty  name="$vo.featured_image"}{$vo.featured_image}{else/}__IMG__/shop/goods{:rand(1,10)}.png{/notempty}" alt="">
+							<div class="img-options">
+								<div class="img-options-content">
+									<div class="push-20">
+										<a class="btn btn-sm btn-default" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">
+											<i class="fa fa-plus"></i> 点击查看
+										</a>
+									</div>
+									<div class="text-warning">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<span class="text-white">({$vo.access_num})</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="block-content">
+							<div class="push-10">
+								<div class="h4 font-w600 text-success pull-right push-10-l">&yen;{$vo.app_price.0.price}</div>
+								<a class="h4" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">{$vo.title}</a>
+							</div>
+							<p class="text-muted">{$vo.alias}</p>
+						</div>
+					</div>
+				</div>
+                {/volist}				
+
+				<div class="col-xs-12 text-right push">
+					<a class="font-w600 link-effect" href="{:url('index/AppShop/news')}">查看更多 <i class="fa fa-angle-right"></i></a>
+				</div>
+			</div>
+			<!-- END New Arrivals -->
+
+			<!-- Best Sellers -->
+			<h3 class="font-w400 text-black push-20">热销产品</h3>
+			<div class="row">				
+                {volist name="$goods_list.sellers" id="vo" offset="0" length='4'}
+				<div class="col-sm-6 col-lg-3">
+					<div class="block">
+						<div class="img-container">
+							<img class="img-responsive" src="{notempty  name="$vo.featured_image"}{$vo.featured_image}{else/}__IMG__/shop/goods{:rand(1,10)}.png{/notempty}" alt="">
+							<div class="img-options">
+								<div class="img-options-content">
+									<div class="push-20">
+										<a class="btn btn-sm btn-default" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">
+											<i class="fa fa-plus"></i> 点击查看
+										</a>
+									</div>
+									<div class="text-warning">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<span class="text-white">({$vo.access_num})</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="block-content">
+							<div class="push-10">
+								<div class="h4 font-w600 text-success pull-right push-10-l">&yen;{$vo.app_price.0.price}</div>
+								<a class="h4" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">{$vo.title}</a>
+							</div>
+							<p class="text-muted">{$vo.alias}</p>
+						</div>
+					</div>
+				</div>
+                {/volist}	
+				<div class="col-xs-12 text-right push">
+					<a class="font-w600 link-effect" href="{:url('index/AppShop/sellers')}">查看更多 <i class="fa fa-angle-right"></i></a>
+				</div>
+			</div>
+			<!-- END Best Sellers -->
+
+			<!-- Best Rated -->
+			<h3 class="font-w400 text-black push-20">热门关注</h3>
+			<div class="row">
+                {volist name="$goods_list.browse" id="vo" offset="0" length='4'}
+				<div class="col-sm-6 col-lg-3">
+					<div class="block">
+						<div class="img-container">
+							<img class="img-responsive" src="{notempty  name="$vo.featured_image"}{$vo.featured_image}{else/}__IMG__/shop/goods{:rand(1,10)}.png{/notempty}" alt="">
+							<div class="img-options">
+								<div class="img-options-content">
+									<div class="push-20">
+										<a class="btn btn-sm btn-default" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">
+											<i class="fa fa-plus"></i> 点击查看
+										</a>
+									</div>
+									<div class="text-warning">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<span class="text-white">({$vo.access_num})</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="block-content">
+							<div class="push-10">
+								<div class="h4 font-w600 text-success pull-right push-10-l">&yen;{$vo.app_price.0.price}</div>
+								<a class="h4" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">{$vo.title}</a>
+							</div>
+							<p class="text-muted">{$vo.alias}</p>
+						</div>
+					</div>
+				</div>
+                {/volist}	
+				<div class="col-xs-12 text-right push">
+					<a class="font-w600 link-effect" href="{:url('index/AppShop/browse')}">查看更多 <i class="fa fa-angle-right"></i></a>
+				</div>
+			</div>
+			<!-- END Best Rated -->
+		</section>
+	</div>
+	<!-- END Products -->
+
+	<!-- Explore Store -->
+	<section class="content content-full content-boxed">
+		<!-- Section Content -->
+		<div class="push-20-t push-20 text-center">
+			<h3 class="h4 push-20 visibility-hidden" data-toggle="appear">超过 <strong>30000</strong> 用户使用!</h3>
+			<a class="btn btn-rounded btn-noborder btn-lg btn-success visibility-hidden" data-toggle="appear" data-class="animated bounceIn" href="{:url('index/User/register')}">申请加入 <i class="fa fa-arrow-right"></i></a>
+		</div>
+		<!-- END Section Content -->
+	</section>
+	<!-- END Explore Store -->
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"} {/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"} {/block}

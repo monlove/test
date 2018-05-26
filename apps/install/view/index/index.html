@@ -1,0 +1,42 @@
+{extend name="layout" /} {block name="progress"}
+<div class="progress active progress-mini">
+	<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"></div>
+</div>
+{/block} {block name="logo"}{/block} {block name="content"}
+<div class="box-content step1">
+	<div class="text">
+		<div class="row">
+			<div class="block-content block-content-full">
+				<div class="row text-center">
+					<div class="col-xs-12">
+						<h2>欢迎使用Rain OS X</h2>
+					</div>
+					<div class="col-xs-4">
+						<div class="h4 text-muted push-5-t">简洁</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="h4 text-muted push-5-t">唯美</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="h4 text-muted push-5-t">清新</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1">
+				<label class="css-input css-checkbox css-checkbox-primary agreement">
+            <input type="checkbox" id="agreement"><span></span> 我已阅读并同意
+        </label>
+				<a href="###" data-toggle="modal" data-target="#modal-popout">用户协议</a>
+			</div>
+            
+		</div>
+
+	</div>
+	<div class="button">
+		<span class="pull-left">{$reinst}</span>
+		<button id="next" class="btn btn-minw btn-default" disabled="" type="button">{$next}</button>
+	</div>
+</div>
+{/block}

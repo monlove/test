@@ -1,0 +1,118 @@
+{extend name="./theme/defaults/base.html" /} {block name="plugcss"} {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-primary-dark">
+		<section class="content content-full content-boxed">
+			<!-- Section Content -->
+			<div class="push-100-t push-50 text-center">
+				<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$page_data['alias']}</h1>
+				<h2 class="h5 text-white-op visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$page_data['description']}</h2>
+			</div>
+			<!-- END Section Content -->
+		</section>
+	</div>
+	<div class="bg-white">
+		<section class="content content-boxed">
+			<!-- Section Content -->
+			<div class="push-50-t push-50">
+				<div class="row">
+					<div class="col-md-8">
+						<!-- Story -->
+						{volist name='post_list' id='vo'}
+						<div class="block">
+							<div class="block-content">
+								<div class="row items-push">
+									<div class="col-md-4">
+										<a href="{$vo.url}">
+											<img class="img-responsive" src="{$vo.featured_image}" alt="">
+										</a>
+									</div>
+									<div class="col-md-8">
+										<div class="font-s12 push-10">
+											<em class="pull-right"><i class="si si-eye push-5-r"></i>{$vo.access_num}</em>
+											<a href="javascript:void(0)">{$vo.author}</a> {$vo.create_time}
+										</div>
+										<h4 class="text-uppercase push-10"><a class="text-primary-dark" href="{$vo.url}">{$vo.title|mb_substr=0,20,'utf-8'}</a></h4>
+										<p class="push-20">{$vo.content|mb_substr=0,60,'utf-8'}...</p>
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-default" href="javascript:void(0)"><i class="fa fa-share-alt push-5-r"></i> 分享</a>
+											<a class="btn btn-default" href="{$vo.url}">继续阅读..</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/volist}
+						<!-- END Story -->
+
+						<!-- Pagination -->
+						<nav>
+							{$post_list->render()}
+						</nav>
+						<!-- END Pagination -->
+					</div>
+					<div class="col-md-4">
+						<!-- Search -->
+						<div class="block">
+							<div class="block-header bg-gray-lighter">
+								<h3 class="block-title">搜索</h3>
+							</div>
+							<div class="block-content block-content-full">
+								<form action="frontend_search.html" method="post">
+									<div class="input-group input-group-lg">
+										<input class="form-control" type="text" placeholder="输入你要搜索的关键词...">
+										<div class="input-group-btn">
+											<button class="btn btn-default"><i class="fa fa-search"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- END Search -->
+
+						<!-- Recent Comments -->
+						<div class="block">
+							<div class="block-header bg-gray-lighter">
+								<ul class="block-options">
+									<li>
+										<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+									</li>
+								</ul>
+								<h3 class="block-title">最热文章</h3>
+							</div>
+							<div class="block-content">
+								<ul class="list list-simple">
+									{volist name='post_hot' id='vo'}
+									<li>
+										<div class="push-5 clearfix">
+											<span class="font-s13 text-muted push-10-l pull-right">{$vo.create_time}</span>
+											<a class="font-w600" href="{$vo.url}">{$vo.title|mb_substr=0,14,'utf-8'}</a>
+
+										</div>
+										<div class="font-s13">{$vo.content|mb_substr=0,50,'utf-8'}</div>
+									</li>
+									{/volist}
+
+								</ul>
+
+							</div>
+						</div>
+						<!-- END Recent Comments -->
+					</div>
+				</div>
+			</div>
+			<!-- END Section Content -->			
+		</section>
+
+	</div>
+{$themedb['data']['content_4']}
+
+	<!-- END Hero Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"} {/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"} {/block}

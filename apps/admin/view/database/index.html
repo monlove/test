@@ -1,0 +1,148 @@
+{extend name="base" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css"/>
+{/block}
+{block name="css"}   
+{/block}
+{block name="style"}
+<style type="text/css">
+	#uploader-btn{
+		margin-top: 5px;
+	}
+@media (min-width: 768px) {
+	.nav-tabs.nav-justified>li {
+		display: table-cell;
+		width: auto;
+	}
+}
+
+@media (min-width: 768px) {
+	.nav-justified>li {
+		display: table-cell;
+		width: auto;
+	}
+}
+.css-checkbox {
+    margin: auto;
+}
+
+</style>
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<!-- Page Content -->
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<ul class="nav nav-tabs nav-justified">
+						<li class="active">
+							<a href="#simple-classic-step1" data-toggle="tab">数据库备份</a>
+						</li>
+						<li>
+							<a href="#simple-classic-step2" data-toggle="tab">数据库还原</a>
+						</li>
+					</ul>
+					<!-- END Step Tabs -->
+
+					<!-- Form -->
+					<!-- Steps Content -->
+					<div class="block-content tab-content">
+						<!-- Step 1 -->
+						<div class="tab-pane push-50 active" id="simple-classic-step1">							
+							<div class="block-content">
+								<div id="toolbar">								
+							    </div>
+							    <form class="forms" action="" method="post">
+								<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+								<table id="database" class="table table-builder js-dataTable-full table-hover table-bordered table-striped">
+									<thead>
+										<tr>
+											<th class="">
+												<label class="css-input css-checkbox css-checkbox-primary">
+                                                    <input type="checkbox" name="data_all" id="data_all"><span></span>
+                                                </label>
+											</th>
+											<th style="width: 40%;">表名</th>
+											<th class="hidden-xs">行数</th>
+											<th class="hidden-xs hidden-md" style="width: 10%;">大小</th>
+											<th class="hidden-xs hidden-md" style="width: 10%;">冗余</th>
+											<th class="hidden-xs hidden-md" style="width: 10%;">备注</th>
+											<th class="" style="width: 15%;">操作</th>
+										</tr>
+									</thead>
+								</table>
+								</form>
+							</div>
+						</div>
+						<!-- END Step 1 -->
+
+						<!-- Step 2 -->
+						<div class="tab-pane push-50" id="simple-classic-step2">
+							<div class="block-content">
+								<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+								<table id="backlists" class="table table-bordered table-striped js-dataTable-full">
+									<thead>
+										<tr>
+											<th>名称</th>
+											<th class="hidden-xs">卷数</th>
+											<th class="hidden-xs" style="width: 15%;">压缩</th>
+											<th class="text-center" style="width: 10%;">数据大小</th>
+											<th class="hidden-xs" style="width: 15%;">备份时间</th>
+											<th style="width: 15%;">操作</th>
+										</tr>
+									</thead>									
+								</table>
+							</div>
+						</div>
+						<!-- END Step 2 -->
+					</div>
+
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block}
+{block name="pagejs"}
+<script type="text/javascript" src="__JS__/database_index.js" ></script>
+{/block}
+{block name="script"}
+
+{/block}

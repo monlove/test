@@ -1,0 +1,119 @@
+{extend name="./theme/defaults/base.html" /} {block name="plugcss"} {/block} {block name="css"} {/block} {block name="style"}
+<style type="text/css">
+	.img-container {
+		height: 212px;
+	}
+	.lefts-15{
+		margin-left: 15px;
+	}
+</style>
+{/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-image" style="background-image: url('__IMG__/shop/shop1.jpg');">
+		<div class="bg-black-op">
+			<section class="content content-full content-boxed">
+				<!-- Section Content -->
+				<div class="push-150-t push-50 text-center">
+					<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$page_data['title']}.</h1>
+					<h2 class="h4 text-white-op push visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">加入我们 , 带给你最好的应用.</h2>
+					<a class="btn btn-rounded btn-noborder btn-lg btn-primary visibility-hidden" data-toggle="appear" data-class="animated zoomIn" href="{:url('index/User/register')}">加入我们</a>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Hero Content -->
+
+	<!-- Courses -->
+	<section class="content content-boxed overflow-hidden">
+		<!-- Section Content -->
+		<div class="push-50-t push-50">
+			<div class="row">
+				{foreach $goods_list.new as $vo}
+				<!-- Course -->
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<a class="block block-rounded block-link-hover2" href="{:url('index/AppShop/goods',['id'=>$vo.id])}">
+						<div class="img-container block-content-full text-center bg-primary ribbon ribbon-bookmark ribbon-crystal">
+						    <img class="img-responsive" src="{notempty  name="$vo.featured_image"}{$vo.featured_image}{else/}__IMG__/shop/goods{:rand(1,10)}.png{/notempty}" alt="">	
+							<div class="ribbon-box font-w600">&yen;{$vo.app_price.0.price}</div>
+							<div class="item item-2x item-circle bg-crystal-op push-20-t push-20 visibility-hidden" data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+								<i class="si si-chemistry text-white-op"></i>
+							</div>
+						</div>
+						<div class="block-content">
+							<h4 class="mheight-50">{$vo.title}</h4>
+							<div class="font-s12 text-right push">
+								<span class="pull-left"><i class="si fa-fw si-eye"></i> {$vo.access_num}</span>
+								
+								<span class="pull-left lefts-15"><i class="si fa-fw si-bar-chart"></i> {$vo.sales_num}</span>
+							    <i class="si si-clock"></i> {$vo.update_time}
+							</div>
+						
+						</div>
+					</a>
+				</div>
+				<!-- END Course -->
+				{/foreach}
+			</div>
+		</div>
+		<!-- END Section Content -->
+	</section>
+	<!-- END Courses -->
+
+	<!-- Instructors -->
+	<div class="bg-image" style="background-image: url('__IMG__/shop/appshopfooter1.jpg');">
+		<div class="bg-primary-dark-op">
+			<section class="content content-full content-boxed text-center">
+				<!-- Section Content -->
+				<h2 class="font-w400 text-white push-30-t push-10 visibility-hidden" data-toggle="appear" data-offset="50" data-class="animated fadeInDown">面向全世界最好的应用认证销售系统 .</h2>
+				<h3 class="h4 push-100 text-white-op push visibility-hidden" data-toggle="appear" data-timeout="300" data-class="animated fadeInDown">提高效率 , 加速开发 , 网络验证.</h3>
+				<div class="row items-push-2x push-30-t">
+					<div class="col-sm-4 visibility-hidden" data-toggle="appear" data-offset="-150" data-timeout="150" data-class="animated fadeInRight">
+						<div class="item item-2x item-circle bg-crystal-op push-20-t push-20 animated fadeIn" data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                            <i class="si si-key text-white-op"></i>
+                        </div>
+						<div class="h4 text-white-op push-15-t push-5">加密</div>
+						<div class="h5 text-gray"><em>动态加密技术</em></div>
+					</div>
+					<div class="col-sm-4 visibility-hidden" data-toggle="appear" data-offset="-150" data-class="animated zoomIn">
+						<div class="item item-2x item-circle bg-crystal-op push-20-t push-20 animated fadeIn" data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                            <i class="si si-paper-clip text-white-op"></i>
+                        </div>
+						<div class="h4 text-white-op push-15-t push-5">授权</div>
+						<div class="h5 text-gray"><em>自定议常量</em></div>
+					</div>
+					<div class="col-sm-4 visibility-hidden" data-toggle="appear" data-offset="-150" data-timeout="150" data-class="animated fadeInLeft">
+						<div class="item item-2x item-circle bg-crystal-op push-20-t push-20 animated fadeIn" data-toggle="appear" data-offset="50" data-class="animated fadeIn">
+                            <i class="si si-share text-white-op"></i>
+                        </div>
+						<div class="h4 text-white-op push-15-t push-5">代理</div>
+						<div class="h5 text-gray"><em>返利提现模式</em></div>
+					</div>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Instructors -->
+
+	<!-- Get Started -->
+	<div class="bg-gray-lighter">
+		<section class="content content-full content-boxed">
+			<!-- Section Content -->
+			<div class="push-20-t push-20 text-center">
+				<h3 class="h4 push-20 visibility-hidden" data-toggle="appear">你准备好开始了吗?</h3>
+				<a class="btn btn-rounded btn-noborder btn-lg btn-primary visibility-hidden" data-toggle="appear" data-class="animated bounceIn" href="{:url('index/User/register')}">加入我们</a>
+			</div>
+			<!-- Section Content END -->
+		</section>
+	</div>
+	<!-- END Get Started -->
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"} {/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"} {/block}

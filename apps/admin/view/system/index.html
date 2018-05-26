@@ -1,0 +1,340 @@
+{extend name="base" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">  
+{/block}
+{block name="css"}   
+{/block}
+{block name="style"}
+<style type="text/css">
+	#uploader-btn{
+		margin-top: 5px;
+	}
+@media (min-width: 768px) {
+	.nav-tabs.nav-justified>li {
+		display: table-cell;
+		width: auto;
+	}
+}
+
+@media (min-width: 768px) {
+	.nav-justified>li {
+		display: table-cell;
+		width: auto;
+	}
+}
+</style>
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+		<h2 class="content-heading">设置选项</h2>
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<ul class="nav nav-tabs nav-justified">
+						<li class="active">
+							<a href="#simple-classic-step1" data-toggle="tab">基本设置</a>
+						</li>
+						<li>
+							<a href="#simple-classic-step2" data-toggle="tab">访问控制</a>
+						</li>
+						<li>
+							<a href="#simple-classic-step3" data-toggle="tab">上传设置</a>
+						</li>
+						<li>
+							<a href="#simple-classic-step4" data-toggle="tab">开发模式</a>
+						</li>
+						<li>
+							<a href="#simple-classic-step5" data-toggle="tab">数据库</a>
+						</li>
+					</ul>
+					<!-- END Step Tabs -->
+
+					<!-- Form -->
+					<form class="form-horizontal js-forms" action="{:url('admin/System/inConfig')}" method="post">
+						<!-- Steps Content -->
+						<div class="block-content tab-content">
+							<!-- Step 1 -->
+							<div class="tab-pane push-30-t push-50 active" id="simple-classic-step1">
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-title">网站标题</label>
+										<input class="form-control" type="text" id="site-title" name="site_title" value="{$Think.config.site.site_title}" placeholder="Rain OS">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-keyword">网站关键词</label>
+										<input class="form-control" type="text" id="site-keyword" name="site_keyword" value="{$Think.config.site.site_keyword}" placeholder="Rain OS,最好的CMS,好用的CMS">
+									</div>
+								</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-logo">站点LOGO</label>
+									<input class="form-control" type="text" id="js-img" name="site_logo" value="{$Think.config.site.site_logo}" placeholder="站点LOGO">
+									<div id="uploader-btn">
+										<!--用来存放item-->
+										<div id="fileList" class="uploader-list"></div>
+										
+										<!--<button type="button" id="delimgs" class="btn btn-default pull-right">清除</button>-->
+									</div>
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									<div class="pull-left" id="filePicker">选择图片</div>
+								</div>
+							</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-description">网站描述</label>
+										<textarea class="form-control" id="site-description" name="site_description" rows="3" placeholder="Rain OS,让你网站无忧管理,界面美观,主题好看">{$Think.config.site.site_description}</textarea>
+									</div>
+								</div>
+							</div>
+							<!-- END Step 1 -->
+
+							<!-- Step 2 -->
+							<div class="tab-pane push-30-t push-50" id="simple-classic-step2">
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-switch">网站开关</label>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">
+										<label class="css-input switch switch-sm switch-primary" for="simple-classic-terms">
+                                            <input type="checkbox" id="simple-classic-terms" name="site_switch" {eq name="$Think.config.site.site_switch" value="on"}checked{/eq}><span></span>
+                                        </label>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-title">Socket Key</label>
+										<input class="form-control" type="text" id="site-title" name="magager_websorket_key" placeholder="key" value="{$Think.config.site.magager_websorket_key}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">重要:后台管理socket通讯KEY , 请修改</div>
+								</div>								
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-title">网站KEY</label>
+										<input class="form-control" type="text" id="site-title" name="site_key" placeholder="key" value="{$Think.config.site.site_key}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">通讯密钥,4位以上字母和数字</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-keyword">密文有效期</label>
+										<input class="form-control" type="text" id="site-keyword" name="site_secret_time" placeholder="0" value="{$Think.config.site.site_secret_time}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">0为永不过期,大于0服务器与客户端时间需同步</div>
+								</div>
+							</div>
+							<!-- END Step 2 -->
+
+							<!-- Step 3 -->
+							<div class="tab-pane push-30-t push-50" id="simple-classic-step3">
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="upfile-size">文件上传大小限制</label>
+										<input class="form-control" type="text" id="upfile-size" name="upfile_size" placeholder="如：1024kb" value="{$Think.config.site.upfile_size}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">0为不限制,单位kb</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-10 col-sm-offset-1" for="upfile-type">文件上传类型</label>
+									<div class="col-sm-10 col-sm-offset-1">
+										<input class="js-tags-input form-control" type="text" id="upfile-type" name="upfile_type" value="{$Think.config.site.upfile_type}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">多个后缀用逗号隔开，不填写则不限制类型</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="upimg-size">图片上传大小限制</label>
+										<input class="form-control" type="text" id="upimg-size" name="upimg_size" placeholder="如：1024kb" value="{$Think.config.site.upimg_size}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">0为不限制,单位kb</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-10 col-sm-offset-1" for="upimg-type">图片上传类型</label>
+									<div class="col-sm-10 col-sm-offset-1">
+										<input class="js-tags-input form-control" type="text" id="upimg-type" name="upimg_type" value="{$Think.config.site.upimg_type}">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">多个后缀用逗号隔开，不填写则不限制类型</div>
+								</div>
+							</div>
+							<!-- END Step 3 -->
+
+							<!-- Step 4 -->
+							<div class="tab-pane push-30-t push-50" id="simple-classic-step4">
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="app_debug">开发模式</label>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">
+										<label class="css-input css-radio css-radio css-radio-sm css-radio-primary push-10-r">
+                                            <input type="radio" name="app_debug" value="1" {eq name="$Think.config.site.app_debug" value="1"}checked{/eq}><span></span> 开启
+                                        </label>
+										<label class="css-input css-radio css-radio-sm css-radio-primary">
+                                            <input type="radio" name="app_debug" value="0" {eq name="$Think.config.site.app_debug" value="0"}checked{/eq}><span></span> 关闭
+                                        </label>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="develop-mode">页面Trace</label>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">
+										<label class="css-input css-radio css-radio css-radio-sm css-radio-primary push-10-r">
+                                            <input type="radio" name="app_trace" value="1" {eq name="$Think.config.site.app_trace" value="1"}checked{/eq}><span></span> 开启
+                                        </label>
+										<label class="css-input css-radio css-radio-sm css-radio-primary">
+                                            <input type="radio" name="app_trace" value="0" {eq name="$Think.config.site.app_trace" value="0"}checked{/eq}><span></span> 关闭
+                                        </label>
+									</div>
+								</div>
+							</div>
+							<!-- END Step 4 -->
+							<!-- Step 5 -->
+							<div class="tab-pane push-30-t push-50" id="simple-classic-step5">
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-title">数据库备份路径</label>
+										<input class="form-control" type="text" id="site-title" name="data_backup_path" value="{$Think.config.data_set.data_backup_path}" placeholder="databak">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1"><code>安全提醒:</code>  请设置复杂的路径,网站入口为起始路径</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="site-title">数据库备份卷大小</label>
+										<input class="form-control" type="text" id="site-title" name="data_backup_part_size" value="{$Think.config.data_set.data_backup_part_size}" placeholder="key">
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">该值用于限制压缩后的分卷最大长度. <code>单位：B</code>, 建议设置<code>20M</code></div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="app_debug">数据库备份文件是否启用压缩</label>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">
+										<label class="css-input css-radio css-radio css-radio-sm css-radio-primary push-10-r">
+                                            <input type="radio" name="data_backup_compress" value="1" {eq name="$Think.config.data_set.data_backup_compress" value="1"}checked{/eq}><span></span> 开启
+                                        </label>
+										<label class="css-input css-radio css-radio-sm css-radio-primary">
+                                            <input type="radio" name="data_backup_compress" value="0" {eq name="$Think.config.data_set.data_backup_compress" value="0"}checked{/eq}><span></span> 关闭
+                                        </label>
+									</div>
+									<div class="help-block col-sm-10 col-sm-offset-1">压缩备份文件需要PHP环境支持 <code>gzopen</code>, <code>gzwrite</code>函数.</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-1">
+										<label for="develop-mode">数据库备份文件压缩级别</label>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">
+										<label class="css-input css-radio css-radio-sm css-radio-primary push-10-r">
+                                            <input type="radio" name="data_backup_compress_level" value="1" {eq name="$Think.config.data_set.data_backup_compress_level" value="1"}checked{/eq}><span></span> 最底
+                                        </label>
+										<label class="css-input css-radio css-radio-sm css-radio-primary push-10-r">
+                                            <input type="radio" name="data_backup_compress_level" value="4" {eq name="$Think.config.data_set.data_backup_compress_level" value="4"}checked{/eq}><span></span> 标准
+                                        </label>
+										<label class="css-input css-radio css-radio-sm css-radio-primary">
+                                            <input type="radio" name="data_backup_compress_level" value="9" {eq name="$Think.config.data_set.data_backup_compress_level" value="9"}checked{/eq}><span></span> 最高
+                                        </label>
+									</div>
+								</div>
+							</div>
+							<!-- END Step 5 -->
+						</div>
+						<!-- END Steps Content -->
+
+						<!-- Steps Navigation -->
+						<div class="block-content block-content-mini block-content-full border-t">
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<button class="btn btn-primary" id="sub" type="submit"><i class="fa fa-check"></i> 提交设置</button>
+								</div>
+								<div class="col-xs-6 text-right">
+									<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+								</div>
+							</div>
+						</div>
+						<!-- END Steps Navigation -->
+					</form>
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+<script src="__ONEUI__/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="__ONEUI__/js/plugins/dropzonejs/dropzone.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block}
+{block name="pagejs"}
+<script src="__ONEUI__/js/pages/base_forms_pickers_more.js"></script>
+<script src="__ONEUI__/js/pages/base_forms_wizard.js"></script>
+<script src="__JS__/system_index.js"></script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+jQuery(function () {
+    App.initHelpers(['tags-inputs']);
+});	
+</script>
+
+        
+{/block}

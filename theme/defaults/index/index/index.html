@@ -1,0 +1,40 @@
+{extend name="./theme/defaults/base.html" /}
+{block name="plugcss"}{/block}
+{block name="css"}{/block} 
+{block name="style"}{/block} 
+{block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Hero Content -->
+	<div class="bg-image" style="background-image: url('__ROOT__{$themedb['data']['widescreen_background']}');">
+		<div class="bg-primary-dark-op">
+			<section class="content content-full content-boxed overflow-hidden">
+				<!-- Section Content -->
+				<div class="push-100-t push-50 text-center">
+					<h1 class="h2 text-white push-10 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$themedb['data']['widescreen_title']}</h1>
+					<h2 class="h5 text-white-op push-50 visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">{$themedb['data']['widescreen_text']}</h2>
+					<a class="btn btn-rounded btn-noborder btn-lg btn-primary visibility-hidden" data-toggle="appear" data-class="animated bounceIn" data-timeout="800" href="{$themedb['data']['widescreen_button_link']}">{$themedb['data']['widescreen_button']}</a>
+				</div>
+				<div class="row visibility-hidden" data-toggle="appear" data-class="animated fadeInUp">
+					<div class="col-sm-8 col-sm-offset-2">
+						<img class="img-responsive pull-b" src="__ROOT__{$themedb['data']['widescreen_img']}" alt="">
+					</div>
+				</div>
+				<!-- END Section Content -->
+			</section>
+		</div>
+	</div>
+	<!-- END Hero Content -->
+	<!-- Mini Stats -->
+    {$themedb['data']['content_1']|raw}
+	{$themedb['data']['content_2']|raw}
+    {$themedb['data']['content_3']|raw}
+    {$themedb['data']['content_4']|raw}
+</main>
+<!-- END Main Container -->
+{/block}
+<!-- Page Plugins -->
+{block name="plugjs"}{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}{/block}
+{block name="script"}{/block}

@@ -1,0 +1,177 @@
+{extend name="./theme/defaults/user/userbase.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" /> {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Sub Header -->
+	<div class="bg-gray-lighter visible-xs">
+		<div class="content-mini content-boxed">
+			<button class="btn btn-block btn-default visible-xs push" data-toggle="collapse" data-target="#sub-header-nav">
+                            <i class="fa fa-navicon push-5-r"></i>菜单
+                        </button>
+		</div>
+	</div>
+	<div class="bg-primary-lighter collapse navbar-collapse remove-padding" id="sub-header-nav">
+		<div class="content-mini content-boxed">
+			<ul class="nav nav-pills nav-sub-header push">
+				{foreach $user_menu as $vo}
+				<li class="{eq name=" $node " value="$vo.node "}active{/eq}">
+					<a href="{:url($vo.node)}">
+						<i class="{$vo.icon} push-5-r"></i>{$vo.name}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- END Sub Header -->
+	<!-- Page Content -->
+	<div class="content content-boxed">
+		<!-- User Header -->
+		<div class="block">
+			<!-- Basic Info -->
+			<!-- Section -->
+			<div class="bg-image overflow-hidden push" style="background-image: url('__IMG__/user/top.jpg');">
+				<div class="bg-black-op">
+					<div class="content">
+						<div class="block block-transparent block-themed text-center">
+							<div class="block-content">
+								<h1 class="h1 font-w700 text-white animated fadeInDown push-5">{$user_page['name']}</h1>
+								<h2 class="h4 font-w400 text-white-op animated fadeInUp">{$user_info.username}</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END Section -->
+			<!-- END Basic Info -->
+
+			<!-- Stats -->
+			<div class="block-content text-center">
+				<div class="row items-push text-uppercase">
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">用户数</div>
+						<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0)">{$app_agent.user_count}</a>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">返利数量</div>
+						<a class="h2 font-w300 text-primary animated flipInX" href="javascript:void(0)">{$app_agent.rebate_count}</a>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">总提现金额</div>
+						<a class="h2 font-w300 text-danger animated flipInX" href="javascript:void(0)">&yen; {$app_agent.draw_sum}</a>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="font-w700 text-gray-darker animated fadeIn">余额</div>
+						<div class="text-warning push-10-t animated flipInX">{$app_agent.rebate}</div>
+					</div>
+				</div>
+			</div>
+			<!-- END Stats -->
+		</div>
+		<!-- END User Header -->
+
+		<!-- Main Content -->
+		<div class="row">
+			<div class="col-sm-5 col-sm-push-7 col-lg-4 col-lg-push-8">
+				<!-- Follow -->
+				<div class="block">
+					<div class="block-content block-content-full text-center">
+						<h3 class="h4 text-uppercase text-black push-5">代理商类型</h3>
+						<h4 class="h5 text-warning">{$app_agent.sort.name}</h4>
+					</div>
+				</div>
+				<!-- END Follow -->
+
+				<!-- About -->
+				<div class="block">
+					<div class="block-content">
+						<p>推广地址</p>
+						<p><code>{$domains}?tn={$user_info.username}</code></p>
+						<p>说明:网站的所有地址,只需URL后面带上<code>tn={$user_info.username}</code>参数,访问的客户所注册的名称即可自动在您的代理名下!</p>
+					</div>
+				</div>
+				<!-- END About -->
+
+			</div>
+			<div class="col-sm-7 col-sm-pull-5 col-lg-8 col-lg-pull-4">
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<ul class="nav nav-tabs nav-justified">
+						<li class="active">
+							<a href="#simple-classic-step1" data-toggle="tab">用户</a>
+						</li>
+						<li class="step2">
+							<a href="#simple-classic-step2" data-toggle="tab">返利记录</a>
+						</li>
+						<li class="step3">
+							<a href="#simple-classic-step3" data-toggle="tab">提现记录</a>
+						</li>
+					</ul>
+					<!-- END Step Tabs -->
+
+					<!-- Form -->
+					<form class="form-horizontal" action="base_forms_wizard.html" method="post">
+						<!-- Steps Content -->
+						<div class="block-content tab-content">
+							<!-- Step 1 -->
+							<div class="tab-pane push-30-t push-50 active" id="simple-classic-step1">
+								<table class="table table-bordered table-striped js-dataTable-full1">
+									<thead>
+										<tr>
+											<th>USER ID</th>
+											<th>用户名</th>
+											<th>加入时间</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<!-- END Step 1 -->
+
+							<!-- Step 2 -->
+							<div class="tab-pane push-30-t push-50" id="simple-classic-step2">
+								<table class="table table-bordered table-striped js-dataTable-full2">
+									<thead>
+										<tr>
+											<th>时间</th>
+											<th>用户名</th>
+											<th>金额</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<!-- END Step 2 -->
+
+							<!-- Step 3 -->
+							<div class="tab-pane push-30-t push-50" id="simple-classic-step3">
+								<table class="table table-bordered table-striped js-dataTable-full3">
+									<thead>
+										<tr>
+										<tr>
+											<th>时间 </th>
+											<th>金额</th>
+											<th>实际金额</th>
+										</tr>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<!-- END Step 3 -->
+						</div>
+						<!-- END Steps Content -->
+					</form>
+					<!-- END Form -->
+				</div>
+			</div>
+		</div>
+		<!-- END Main Content -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}
+<script src="__JS__/agent_info_index.js"></script>
+{/block} {block name="script"} {/block}

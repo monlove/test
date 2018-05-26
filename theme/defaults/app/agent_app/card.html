@@ -1,0 +1,173 @@
+{extend name="./theme/defaults/user/userbase.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" />
+<link rel="stylesheet" type="text/css" href="__PLUGS__/jquery-labelauty/source/jquery-labelauty.css" />
+{/block} {block name="css"} {/block} {block name="style"}
+<style type="text/css">
+	.dropdown-menu {
+		min-width: 120px;
+	}
+	.ul-radio {
+		padding-left: 0px;
+	}
+	
+	.li-radio {
+		display: inline-block;
+		padding-left: 10px;
+	}
+	
+	.li-radio>label {
+		border: 1px solid #337ab7;
+		border-radius: 3px !important;
+	}
+
+    .li-radio>label {
+        border: 1px solid #e9e9e9;
+    }
+    input.labelauty:checked + label {
+        background-color: #337ab7;
+        color: #ffffff;
+        border: 1px solid #337ab7;
+    }
+	
+	input.labelauty+label {
+		font: 12px "Microsoft Yahei";
+	}
+</style>
+
+ {/block} {block name="main"}
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Sub Header -->
+	<div class="bg-gray-lighter visible-xs">
+		<div class="content-mini content-boxed">
+			<button class="btn btn-block btn-default visible-xs push" data-toggle="collapse" data-target="#sub-header-nav">
+                            <i class="fa fa-navicon push-5-r"></i>菜单
+                        </button>
+		</div>
+	</div>
+	<div class="bg-primary-lighter collapse navbar-collapse remove-padding" id="sub-header-nav">
+		<div class="content-mini content-boxed">
+			<ul class="nav nav-pills nav-sub-header push">
+				{foreach $user_menu as $vo}
+				<li class="{eq name=" $node " value="$vo.node "}active{/eq}">
+					<a href="{:url($vo.node)}">
+						<i class="{$vo.icon} push-5-r"></i>{$vo.name}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- END Sub Header -->
+	<!-- Page Content -->
+	<div class="content content-boxed">
+		<!-- User Header -->
+		<div class="block">
+			<!-- Basic Info -->
+			<!-- Section -->
+			<div class="bg-image overflow-hidden push" style="background-image: url('__IMG__/user/top.jpg');">
+				<div class="bg-black-op">
+					<div class="content">
+						<div class="block block-transparent block-themed text-center">
+							<div class="block-content">
+								<h1 class="h1 font-w700 text-white animated fadeInDown push-5">{$user_page['name']}</h1>
+								<h2 class="h4 font-w400 text-white-op animated fadeInUp">{$user_info.username}</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END Section -->
+			<!-- END Basic Info -->
+		</div>
+		<!-- END User Header -->
+
+		<!-- Dynamic Table Full -->
+		<div class="block">
+			<div class="block-header">
+				<h3 class="block-title">
+					筛选<small></small>
+				</h3>
+			</div>
+			<div class="block-content">
+				<ul class="ul-radio">
+					<li class="li-radio">
+						<input type="checkbox" class="is_use" data-labelauty="已使用"/>
+					</li>
+					<li class="li-radio">
+						<input type="checkbox" class="is_sell" data-labelauty="已出售"/>
+					</li>
+					<li class="li-radio">
+						<input type="checkbox" class="is_stop" data-labelauty="已停用"/>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="block">
+			<div class="block-header">
+				<h3 class="block-title">
+					应用:<code>{present name="$app_db.name"}{$app_db.name}{else /}全部{/present}</code>
+					<small></small>
+				</h3>
+			</div>
+			<div class="block-content">
+				<div id="toolbar">
+				</div>
+				<form class="forms" action="" method="post">
+					<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+					<table class="jsexport table table-bordered table-striped js-dataTable-full">
+						<thead>
+							<tr>
+								<th class="sorting_disabled">
+									<label class="css-input css-checkbox css-checkbox-primary">
+                                <input type="checkbox" name="data_all" id="data_all"><span></span>
+                                </label>
+								</th>
+								<th>ID</th>
+								<th class="">卡号</th>
+								<th class="hidden-xs">应用</th>
+								<th class="hidden-xs">卡类型</th>
+								<th class="hidden-xs">创建时间</th>
+								<th class="hidden-xs">出售时间</th>
+								<th class="hidden-xs">使用时间</th>
+								<th class="" style="width: 10%;">状态</th>
+							</tr>
+						</thead>
+					</table>
+				</form>
+				<div class="tools">
+
+				</div>
+
+			</div>
+		</div>
+		<!-- END Dynamic Table Full -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/jquery-labelauty/source/jquery-labelauty.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+<script src="__PLUGS__/table-export/tableExport.js"></script>
+{/block}
+<!-- Page JS Code -->
+{block name="pagejs"}
+<script src="__JS__/agent_app_card.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".li-radio :checkbox").labelauty();
+		//$(":radio").labelauty();
+		
+		$('.labelauty').on('click',function(){
+	        table = $('.js-dataTable-full').DataTable();
+		    table.ajax.reload(null, false);
+		});
+		
+	});
+	var app_id = '{$app_db.id}';
+</script>
+{/block}

@@ -1,0 +1,132 @@
+{extend name="./apps/admin/view/base.html" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+{/block}
+{block name="css"}
+{/block} 
+{block name="style"}
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<h3 class="block-title">{$actiondb['name']}</h3>
+						</div>
+					</div>
+					<!-- END Step Tabs -->
+					<!-- Form -->
+					<form id="forms" class="js-forms form-horizontal" action="{:url('admin/Developer/inadd')}" method="post">
+						<!-- Steps Content -->
+						<div class="block-content tab-content">
+							<!-- Step 1 -->
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="user-name">用户名</label>
+									<input class="form-control" type="text" id="username" name="username" placeholder="英文,字母,数字或下划线">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">密码</label>
+									<input class="form-control" type="password" id="app-version" name="password" placeholder="密码">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">确认密码</label>
+									<input class="form-control" type="password" id="app-version" name="enpassword" placeholder="密码">
+								</div>
+							</div>
+						
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-comment">备注</label>
+									<textarea class="form-control" id="app-comment" name="comment" rows="3" placeholder=""></textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"></div>
+							</div>
+							<!-- END Step 1 -->
+						</div>
+						<!-- END Steps Content -->
+
+						<!-- Steps Navigation -->
+						<div id="subbox" class="block-content block-content-mini block-content-full border-t">
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<button class="btn btn-primary" id="sub" type="submit"><i class="fa fa-check"></i> 提交</button>
+									<a href="javascript:history.back();" class="btn btn-default" type="button"><i class="si fa-fw si-action-undo"></i> 返回</a>
+								</div>
+								<div class="col-xs-6 text-right">
+									<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+								</div>
+							</div>
+						</div>
+						<!-- END Steps Navigation -->
+					</form>
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block} 
+{block name="pagejs"}
+<script src="__JS__/user_add.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+var global_public='__PUBLIC__';	
+</script>
+{/block}

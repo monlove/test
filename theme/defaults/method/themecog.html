@@ -1,0 +1,202 @@
+<!-- Page Content -->
+<div class="content content-narrow">
+	<!-- Simple Wizards -->
+	<h2 class="content-heading">设置选项</h2>
+	<div class="row">
+		<div class="col-lg-12">
+			<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+			<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+			<div class="js-wizard-simple block">
+				<!-- Step Tabs -->
+				<ul class="nav nav-tabs nav-justified">
+					<li class="active">
+						<a href="#simple-classic-step1" data-toggle="tab">基本设置</a>
+					</li>
+					<li class="">
+						<a href="#simple-classic-step2" class="indexset" data-toggle="tab">首页设置</a>
+					</li>					
+				</ul>
+				<!-- END Step Tabs -->
+
+				<!-- Form -->
+				<form class="form-horizontal js-forms" action="{:url('admin/PageConfig/inConfig')}" method="post">
+					<!-- Steps Content -->
+					<div class="block-content tab-content">
+						<!-- Step 1 -->
+						<div class="tab-pane push-30-t push-50 active" id="simple-classic-step1">
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-title">网站标题</label>
+									<input class="form-control" type="text" id="site-title" name="site_title" value="{$themedb['data']['site_title']}" placeholder="Rain OS">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">网站关键词</label>
+									<input class="form-control" type="text" id="site-keywords" name="site_keywords" value="{$themedb['data']['site_keywords']}" placeholder="Rain OS,最好的CMS,好用的CMS">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-logo">站点LOGO</label>
+									<input class="form-control" type="text" id="js-img" name="site_logo" value="{$themedb['data']['site_logo']}" placeholder="站点LOGO">
+									<div id="uploader-btn">
+										<!--用来存放item-->
+										<div id="fileList" class="uploader-list">
+											{notempty name="$themedb['data']['site_logo']"}
+											<div id="divimg" class="file-item thumbnail" style=""><img id="imgid" src="{$themedb['data']['site_logo']}"></div>
+											{/notempty}
+										</div>
+										
+										<!--<button type="button" id="delimgs" class="btn btn-default pull-right">清除</button>-->
+									</div>
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									<div class="pull-left" id="filePicker">选择图片</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-description">网站描述</label>
+									<textarea class="form-control" id="site-description" name="site_description" rows="3" placeholder="Rain OS,让你网站无忧管理,界面美观,主题好看">{$themedb['data']['site_description']}</textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">备案号</label>
+									<input class="form-control" type="text" id="site-keyword" name="site_record" value="{$themedb['data']['site_record']}" placeholder="Rain OS,最好的CMS,好用的CMS">
+								</div>
+							</div>							
+						</div>
+						<!-- END Step 1 -->
+						<!-- Step 2 -->
+						<div class="tab-pane push-30-t push-50" id="simple-classic-step2">
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-logo">宽屏背景</label>
+									<input class="form-control" type="text" id="widescreen_background" name="widescreen_background" value="{$themedb['data']['widescreen_background']}" placeholder="">
+									
+									<div id="uploader-btn">
+										<!--用来存放item-->
+										<div id="fileListbg" class="uploader-listbg">
+											{notempty name="$themedb['data']['widescreen_background']"}
+											<div id="divimgbg" class="file-item thumbnail" style=""><img id="imgidbg" src="{$themedb['data']['widescreen_background']}"></div>
+											{/notempty}
+										</div>										
+										<!--<button type="button" id="delimgs" class="btn btn-default pull-right">清除</button>-->
+									</div>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">首页宽屏背景图片 大图</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									<div class="pull-left" id="filePickerbg">选择图片</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-logo">宽屏图片</label>
+									<input class="form-control" type="text" id="widescreen_img" name="widescreen_img" value="{$themedb['data']['widescreen_img']}" placeholder="">
+									<div id="uploader-btn">
+										<!--用来存放item-->
+										<div id="fileListimg" class="uploader-listimg">
+											{notempty name="$themedb['data']['widescreen_img']"}
+											<div id="divimgimg" class="file-item thumbnail" style=""><img id="imgidimg" src="{$themedb['data']['widescreen_img']}"></div>
+											{/notempty}
+										</div>										
+										<!--<button type="button" id="delimgs" class="btn btn-default pull-right">清除</button>-->
+									</div>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">首页宽屏图片 背景图前</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									<div class="pull-left" id="filePickerimg">选择图片</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">宽屏标题</label>
+									<input class="form-control" type="text" id="site-keyword" name="widescreen_title" value="{$themedb['data']['widescreen_title']}" placeholder="">
+								</div>
+							</div>							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">宽屏文字</label>
+									<input class="form-control" type="text" id="site-keyword" name="widescreen_text" value="{$themedb['data']['widescreen_text']}" placeholder="">
+								</div>
+							</div>
+							<div class="help-block col-sm-10 col-sm-offset-1">首页头部中间文字</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">宽屏按钮标题</label>
+									<input class="form-control" type="text" id="site-keyword" name="widescreen_button" value="{$themedb['data']['widescreen_button']}" placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">宽屏按钮链接</label>
+									<input class="form-control" type="text" id="site-keyword" name="widescreen_button_link" value="{$themedb['data']['widescreen_button_link']}" placeholder="">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">以<code>http</code>开头的<code>URL</code>地址</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">内容区域(1)</label>
+									<textarea class="form-control" type="text" name="content_1" rows="6" value="">{$themedb['data']['content_1']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">支持<code>HTML</code>元素代码</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">内容区域(2)</label>
+									<textarea class="form-control" type="text" name="content_2" rows="6" value="">{$themedb['data']['content_2']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">支持<code>HTML</code>元素代码</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">内容区域(3)</label>
+									<textarea class="form-control" type="text" name="content_3" rows="6" value="">{$themedb['data']['content_3']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">支持<code>HTML</code>元素代码</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">内容区域(4)</label>
+									<textarea class="form-control" type="text" name="content_4" rows="6" value="">{$themedb['data']['content_4']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">支持<code>HTML</code>元素代码</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="site-keyword">内容区域(5)</label>
+									<textarea class="form-control" type="text" name="content_5" rows="6" value="">{$themedb['data']['content_5']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">支持<code>HTML</code>元素代码</div>
+							</div>							
+						</div>
+						<!-- END Step 2 -->						
+					</div>
+					<!-- END Steps Content -->
+
+					<!-- Steps Navigation -->
+					<div class="block-content block-content-mini block-content-full border-t">
+						<div class="row">
+							<div class="col-sm-10 col-sm-offset-1">
+								<button class="btn btn-primary" id="sub" type="submit"><i class="fa fa-check"></i> 提交设置</button>
+							</div>
+							<div class="col-xs-6 text-right">
+								<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+							</div>
+						</div>
+					</div>
+					<!-- END Steps Navigation -->
+				</form>
+				<!-- END Form -->
+			</div>
+			<!-- END Simple Classic Wizard -->
+		</div>
+	</div>
+	<!-- END Simple Wizards -->
+</div>
+<!-- END Page Content -->
+	

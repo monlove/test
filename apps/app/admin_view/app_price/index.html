@@ -1,0 +1,78 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css" /> {/block} {block name="css"} {/block} {block name="style"}
+<style type="text/css">
+
+</style>
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<!-- Dynamic Table Full -->
+		<div class="row">
+			{foreach $app_list as $vo}
+			<div class="col-lg-3">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full bg-default-dark text-center">
+						<div class="push-10-t push-10">
+							<i class="fa fa-4x fa-adn text-white-op push-10"></i>
+							<h3 class="h4 text-white">{$vo.name}</h3>
+						</div>
+					</div>
+					
+					{foreach $vo.price_list as $vprice}
+					<div class="block-content block-content-full clearfix">
+						<div class="pull-right">
+							<a class="btn btn-sm btn-info" href="{:url('admin/AppPrice/edit',['id'=>$vprice.id])}">编辑</a>
+							<a class="btn btn-sm btn-danger js-ajax" href="javascript:;" url-data="{:url('admin/AppPrice/delete',['id'=>$vprice.id])}">删除</a>
+						</div>
+
+						<div class="pull-left">
+							<div class="h4"><i class="fa fa-cny"></i>{$vprice.price} <span class="text-primary font-w100">{$vprice.name}</span></div>
+						</div>
+					</div>
+				    {/foreach}
+					<div class="block-content block-content-full clearfix">
+						<div class="">
+							<a class="btn btn-block btn-minw btn-rounded btn-primary" href="{:url('admin/AppPrice/add',['id'=>$vo.id])}"><i class="fa fa-plus pull-left"></i> 添加售价类型</a>
+						</div>
+
+					</div>				    
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		<!-- END Dynamic Table Full -->
+	</div>
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script>
+{/block} {block name="pagejs"}
+<script type="text/javascript" src="__JS__/app_price.js"></script>
+{/block} {block name="script"} {/block}

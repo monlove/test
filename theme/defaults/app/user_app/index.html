@@ -1,0 +1,106 @@
+{extend name="./theme/defaults/user/userbase.html" /} {block name="plugcss"} {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Sub Header -->
+	<div class="bg-gray-lighter visible-xs">
+		<div class="content-mini content-boxed">
+			<button class="btn btn-block btn-default visible-xs push" data-toggle="collapse" data-target="#sub-header-nav">
+                            <i class="fa fa-navicon push-5-r"></i>菜单
+                        </button>
+		</div>
+	</div>
+	<div class="bg-primary-lighter collapse navbar-collapse remove-padding" id="sub-header-nav">
+		<div class="content-mini content-boxed">
+			<ul class="nav nav-pills nav-sub-header push">
+				{foreach $user_menu as $vo}
+				<li class="{eq name=" $node " value="$vo.node "}active{/eq}">
+					<a href="{:url($vo.node)}">
+						<i class="{$vo.icon} push-5-r"></i>{$vo.name}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- END Sub Header -->
+
+	<!-- Page Content -->
+	<div class="content content-boxed">
+		<!-- Section -->
+		<div class="bg-image img-rounded overflow-hidden push" style="background-image: url('__IMG__/user/top.jpg');">
+			<div class="bg-black-op">
+				<div class="content">
+					<div class="block block-transparent block-themed text-center">
+						<div class="block-content">
+							<h1 class="h1 font-w700 text-white animated fadeInDown push-5">{$user_page['name']}</h1>
+							<h2 class="h4 font-w400 text-white-op animated fadeInUp">{$user_info.username}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Section -->
+		<!-- Stats -->
+		<div class="row text-uppercase">
+			<div class="col-xs-6 col-sm-6">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="font-s12 font-w700">已激活</div>
+						<a class="h2 font-w300 text-primary" href="javascript:void(0)">{$user_app.action_count}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-6">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="font-s12 font-w700">已过期</div>
+						<a class="h2 font-w300 text-primary" href="javascript:void(0)">{$user_app.expire_count}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Stats -->
+		<!-- Settings -->
+		<div class="row">
+			{foreach $user_app.lists as $va}
+			<div class="col-xs-4">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full bg-info text-center">
+						<div class="push-10-t push-10">
+							<i class="si fa-4x si-paper-plane text-white-op push-10"></i>
+							<h3 class="h4 text-white">{$va.app_db.name}</h3>
+						</div>
+					</div>
+					<div class="block-content">
+						<ul class="nav nav-pills nav-stacked font-s13 push">
+							<li>
+								<a href="javascript:void(0)" class="font-w300"><span class="pull-right">{$va.create_time}</span>激活</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)" class="font-w300"><span class="pull-right">{$va.expire}</span>剩余</a>
+							</li>
+						</ul>
+						{notempty name="$va.app_goods"}
+						<div class="push-10">						
+							<a href="{:url('index/AppShop/goods',['id'=>$va.app_goods.id])}" class="h5 font-w600 text-primary pull-right push-10-l">充值</a>
+							<a class="h4" href="javascript:void(0)">{$va.app_goods.title}</a>																												
+						</div>
+						{else /}
+						<div class="push-10 text-center">																											
+							<a class="h4" href="javascript:void(0)">未发布商品</a>							
+						</div>						
+						{/notempty}
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		<!-- END Settings -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"} {/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"} {/block}

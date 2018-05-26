@@ -1,0 +1,105 @@
+{extend name="./apps/admin/view/base.html" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css"/>
+{/block}
+{block name="css"}   
+{/block}
+{block name="style"}
+
+
+</style>
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<!-- Dynamic Table Full -->
+		<div class="block">
+			<div class="block-header">
+				<h3 class="block-title">{$actiondb['name']} - <span class="label label-primary">{$param['app_db']['name']}</span></h3>
+				
+			</div>
+			
+			<div class="block-content">
+				<div id="toolbar">
+				
+			</div>
+			<form class="forms" action="" method="post">
+				<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+				<table class="table table-bordered table-striped js-dataTable-full">
+					<thead>
+						<tr>
+							<th class="sorting_disabled">
+								<label class="css-input css-checkbox css-checkbox-primary">
+                                <input type="checkbox" name="data_all" id="data_all"><span></span>
+                                </label>
+							</th>
+							<th class="hidden-xs">序号</th>
+							<th class="hidden-xs">用户</th>
+							<th class="hidden-xs">激活时间</th>
+							{eq name="$param['app_db']['use_way']" value="points"}
+							<th class="hidden-xs">剩余点数</th>
+							{else /}
+							<th class="hidden-xs">到期时间</th>
+							{/eq}
+							
+							<th class="hidden-xs">连接IP</th>
+							<th class="hidden-xs">效验次数</th>
+							<th class="" style="width: 10%;">状态</th>
+							<th class="" style="width: 15%;">操作</th>
+						</tr>
+					</thead>
+				</table>
+			</form>	
+			</div>
+		</div>
+		<!-- END Dynamic Table Full -->
+	</div>
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block}
+{block name="pagejs"}
+<script type="text/javascript">
+	var tableurl = '{:url(\'admin/AppUser/lists\')}';
+	var options  = '{$param.option}';
+	var app_id  = '{$param.app_id}';
+</script>
+{eq name="$param['app_db']['use_way']" value="points"}
+<script type="text/javascript" src="__JS__/user_app_p.js" ></script>
+{else /}
+<script type="text/javascript" src="__JS__/user_app.js" ></script>
+{/eq}
+
+{/block}
+{block name="script"}
+
+{/block}

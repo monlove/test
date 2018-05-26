@@ -1,0 +1,85 @@
+{extend name="./apps/admin/view/base.html" /}
+{block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__ONEUI__/js/plugins/datatables/jquery.dataTables.css"/>
+{/block}
+{block name="css"}   
+{/block}
+{block name="style"}
+
+
+</style>
+{/block}
+{block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content">
+		<!-- Dynamic Table Full -->
+		<div class="block">
+			<div class="block-header">
+				<h3 class="block-title">{$actiondb['name']}</h3>
+				
+			</div>
+			
+			<div class="block-content">
+				<div id="toolbar">
+				
+			</div>
+			<form class="forms" action="" method="post">
+				<!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+				<table class="table table-bordered table-striped js-dataTable-full">
+					<thead>
+						<tr>
+							<th class="hidden-xs">编号</th>
+							<th class="hidden-xs">代理商</th>
+							<th class="hidden-xs">提现时间</th>
+							<th class="hidden-xs">提现金额</th>
+						    <th class="hidden-xs">手续费</th>
+						    <th class="hidden-xs">实际金额</th>
+						</tr>
+					</thead>
+				</table>
+			</form>	
+			</div>
+		</div>
+		<!-- END Dynamic Table Full -->
+	</div>
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script type="text/javascript" src="__ONEUI__/js/plugins/datatables/jquery.dataTables.min.js" ></script>
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block}
+{block name="pagejs"}
+
+<script type="text/javascript" src="__JS__/app_agent_draw.js" ></script>
+
+{/block}
+{block name="script"}
+
+{/block}

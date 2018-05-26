@@ -1,0 +1,167 @@
+{extend name="./theme/defaults/user/userbase.html" /} {block name="plugcss"} {/block} {block name="css"} {/block} {block name="style"} {/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Sub Header -->
+	<div class="bg-gray-lighter visible-xs">
+		<div class="content-mini content-boxed">
+			<button class="btn btn-block btn-default visible-xs push" data-toggle="collapse" data-target="#sub-header-nav">
+                            <i class="fa fa-navicon push-5-r"></i>菜单
+                        </button>
+		</div>
+	</div>
+	<div class="bg-primary-lighter collapse navbar-collapse remove-padding" id="sub-header-nav">
+		<div class="content-mini content-boxed">
+			<ul class="nav nav-pills nav-sub-header push">
+				{foreach $user_menu as $vo}
+				<li class="{eq name=" $node " value="$vo.node "}active{/eq}">
+					<a href="{:url($vo.node)}">
+						<i class="{$vo.icon} push-5-r"></i>{$vo.name}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- END Sub Header -->
+
+	<!-- Page Content -->
+	<div class="content content-boxed">
+		<!-- Section -->
+		<div class="bg-image img-rounded overflow-hidden push" style="background-image: url('__IMG__/user/top.jpg');">
+			<div class="bg-black-op">
+				<div class="content">
+					<div class="block block-transparent block-themed text-center">
+						<div class="block-content">
+							<h1 class="h1 font-w700 text-white animated fadeInDown push-5">{$user_page['name']}</h1>
+							<h2 class="h4 font-w400 text-white-op animated fadeInUp">{$user_info.username}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Section -->
+
+		<!-- Stats -->
+		<div class="row text-uppercase">
+			<div class="col-xs-6 col-sm-3">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="text-muted">
+							<small><i class="si si-calendar"></i> 创建</small>
+						</div>
+						<div class="font-s12 font-w700">加入本站日期</div>
+						<a class="h2 font-w300 text-primary" href="#">{$user_info.create_date}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="text-muted">
+							<small><i class="si si-calendar"></i> 更新</small>
+						</div>
+						<div class="font-s12 font-w700">信息更新日期</div>
+						<a class="h2 font-w300 text-primary" href="#">{$user_info.update_date}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="text-muted">
+							<small><i class="si si-clock"></i> 本次登录</small>
+						</div>
+						<div class="font-s12 font-w700">本次登录时间</div>
+						<a class="h2 font-w300 text-primary" href="#">{$user_info.login_date}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<div class="block block-rounded">
+					<div class="block-content block-content-full">
+						<div class="text-muted">
+							<small><i class="si si-clock"></i> 上次登录</small>
+						</div>
+						<div class="font-s12 font-w700">上次登录时间</div>
+						<a class="h2 font-w300 text-primary" href="#">{$user_info.last_login_date}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Stats -->
+
+		<!-- Charts -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="block block-rounded block-opt-refresh-icon8">
+					<div class="block-header">
+						<ul class="block-options">
+							<li>
+								<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+							</li>
+						</ul>
+						<h3 class="block-title">基本信息</h3>
+					</div>
+					<div class="block-content block-content-full bg-gray-lighter">
+						<ul class="nav nav-pills nav-stacked font-s13 push">
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.username}</span>用户名</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="badge badge-primary pull-right">{$user_info.id}</span>ID</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.qq}</span>QQ</a>
+							</li>							
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.email}</span>email</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.mobile}</span>手机</a>
+							</li>							
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="block block-rounded block-opt-refresh-icon8">
+					<div class="block-header">
+						<ul class="block-options">
+							<li>
+								<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+							</li>
+						</ul>
+						<h3 class="block-title">Sales</h3>
+					</div>
+					<div class="block-content block-content-full bg-gray-lighter">
+						<ul class="nav nav-pills nav-stacked font-s13 push">
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.score}</span>积分</a>
+							</li>							
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.create_ip}</span>注册IP</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.login_ip}</span>登录IP</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="pull-right">{$user_info.last_login_ip}</span>上次登录IP</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="badge badge-info pull-right">{$user_info.login_count}</span>登录次数</a>
+							</li>								
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END Charts -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block} {block name="plugjs"} {/block}
+<!-- Page JS Code -->
+{block name="pagejs"} {/block} {block name="script"} {/block}

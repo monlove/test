@@ -1,0 +1,257 @@
+{extend name="./apps/admin/view/base.html" /} {block name="plugcss"}
+<link rel="stylesheet" type="text/css" href="__PLUGS__/webuploader/webuploader.css" />
+<link rel="stylesheet" href="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+{/block}
+{block name="css"}
+{/block} 
+{block name="style"}
+
+{/block} {block name="main"}
+
+<!-- Main Container -->
+<main id="main-container">
+	<!-- Page Header -->
+	<div class="content bg-gray-lighter">
+		<div class="row items-push">
+			<div class="col-sm-8">
+				<h1 class="page-heading">
+                                {$actiondb['name']} <small>{$actiondb['alias']}.</small>
+                            </h1>
+			</div>
+			<div class="col-sm-4 text-right hidden-xs">
+				<ol class="breadcrumb push-10-t">
+					<li><i class="fa fa-fw fa-map-marker"></i></li>
+					<li>{$moduledb['name']}</li>
+					<li>{$controllerdb['name']}</li>
+					<li>
+						<a class="link-effect" href="{:url($actiondb['node'])}">{$actiondb['name']}</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!-- END Page Header -->
+
+	<!-- Page Content -->
+	<div class="content content-narrow">
+		<!-- Simple Wizards -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- Simple Classic Wizard (.js-wizard-simple class is initialized in js/pages/base_forms_wizard.js) -->
+				<!-- For more examples you can check out http://vadimg.com/twitter-bootstrap-wizard-example/ -->
+				<div class="js-wizard-simple block">
+					<!-- Step Tabs -->
+					<div class="block">
+						<div class="block-header bg-gray-lighter">
+							<h3 class="block-title">{$actiondb['name']}</h3>
+						</div>
+					</div>
+					<!-- END Step Tabs -->
+					<!-- Form -->
+					<form id="forms" class="js-forms form-horizontal" action="{:url('admin/App/inEdit')}" method="post">
+						<!-- Steps Content -->
+						<div class="block-content tab-content">
+							<!-- Step 1 -->
+							<input type="hidden" name="app_id" id="app_id" value="{$appsdb['id']}" />
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-name">应用名称</label>
+									<input class="form-control" type="text" id="app-name" name="name" value="{$appsdb['name']}" placeholder="Rain OS">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="secret_key">Secret KEY</label>
+									<div class="input-group">
+										<input class="form-control" type="text" id="secret_key" name="secret_key" value="{$appsdb['secret_key']}" placeholder="key">
+										<span class="input-group-btn">
+                                            <button class="btn-key btn btn-default btn-warning" type="button"><i class="si si-key"></i>更换</button>
+                                        </span>
+									</div>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">更换KEY会使客户端连接不上</div>
+							</div>							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="sapp-icon">应用图标</label>
+									<input class="form-control" type="text" id="js-img" name="icon" value="{$appsdb['icon']}" placeholder="站点LOGO">
+									<div class="help-block">72*72或64*64图标</div>
+									<div id="uploader-btn">
+										<!--用来存放item-->
+										<div id="fileList" class="uploader-list">
+											{notempty name="$appsdb['icon']"}
+											<div id="divimg" class="file-item thumbnail" style=""><img id="imgid" src="{$appsdb['icon']}"></div>
+											{/notempty}											
+										</div>										
+										<!--<button type="button" id="delimgs" class="btn btn-default pull-right">清除</button>-->
+									</div>									
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									<div class="pull-left" id="filePicker">选择图片</div>
+								</div>	
+							</div>							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label class="" for="bind">加密方式</label>
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">									
+                                    <label class="css-input css-radio css-radio-primary push-10-r">
+                                        <input type="radio" name="crypt" value="not" {eq name="$appsdb['crypt']" value="not"}checked=""{/eq}><span></span> 不加密
+                                    </label>						
+                                    <label class="css-input css-radio css-radio-primary push-10-r">
+                                        <input type="radio" name="crypt" value="authcode" {eq name="$appsdb['crypt']" value="authcode"}checked=""{/eq}><span></span> Authcode
+                                    </label>                                   
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">加密只对部份数据 , 字符加密后必须使用  <code>base64编码</code>  一次</div>
+							</div>								
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">版本号</label>
+									<input class="form-control" type="text" id="app-version" name="version" value="{$appsdb['version']}" placeholder="如：v1.0.0">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label class="" for="bind">计费选项</label>
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">
+									{foreach $Think.config.unit.use_way as $vo}
+                                    <label class="css-input css-radio css-radio-primary push-10-r">
+                                        <input type="radio" name="use_way" value="{$vo.name}" {eq name="$vo.name" value="$appsdb['use_way']"}checked=""{/eq}><span></span> {$vo.title}
+                                    </label>									
+									{/foreach}                                
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">必需选择一项做为计费选项  </div>
+							</div>	
+							<div class="form-group js_points">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">初始点</label>
+									<input class="form-control" type="text" id="app-version" name="tryout_points" value="{$appsdb['tryout_points']}" placeholder="如：1 , 2 , 3 , 4">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">新用户初始点数</div>
+							</div>
+							<div class="form-group js_points">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">默认扣点</label>
+									<input class="form-control" type="text" id="app-version" name="dec_points" value="{$appsdb['dec_points']}" placeholder="如：1 , 2 , 3 , 4">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">客户端提交扣点一次所扣除的点数,如不使用请填写 <code>0</code> ,可在客户端自定议扣点</div>
+							</div>							
+							<div class="form-group js_points">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-version">解绑扣点</label>
+									<input class="form-control" type="text" id="app-version" name="unbind_dec_points" value="{$appsdb['unbind_dec_points']}" placeholder="如：1 , 2 , 3 , 4">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"></div>
+							</div>							
+							<div class="form-group js_time">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="tryout_time">试用时间</label>
+									<input class="form-control" type="text" id="tryout_time" name="tryout_time" value="{$appsdb['tryout_time']}" placeholder="试用时间">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">分钟计算</div>
+							</div>
+							<div class="form-group js_time">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label class="" for="bind">绑定选项</label>
+								</div>
+								<div class="col-sm-10 col-sm-offset-1">									
+									<label class="css-input switch switch-sm switch-primary push-20-r">
+                                        <input type="checkbox" name="bind_ip" {eq name="$appsdb['bind_ip']" value="on"}checked=""{/eq}><span></span> IP
+                                   </label>							
+									<label class="css-input switch switch-sm switch-primary push-10-r">
+                                        <input type="checkbox" name="bind_device_code" {eq name="$appsdb['bind_device_code']" value="on"}checked=""{/eq}><span></span> 特征码
+                                    </label>									
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"><code>IP</code>服务器可自动读取,<code>特征码</code>由客户端提交,可是以手机IMEI或电脑网卡地址或硬盘序列号</div>
+							</div>
+                            <div class="form-group js_time">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="unbind_dec_time">解绑扣时</label>
+									<input class="form-control" type="text" id="unbind_dec_time" name="unbind_dec_time" value="{$appsdb['unbind_dec_time']}" placeholder="Rain OS">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">按分钟计算</div>
+							</div>
+                            <div class="form-group js_time">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="unbind_dec_score">解绑扣积分</label>
+									<input class="form-control" type="text" id="unbind_dec_score" name="unbind_dec_score" value="{$appsdb['unbind_dec_score']}" placeholder="Rain OS">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">积分不足时无法解绑</div>
+							</div>						
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="down_url">下载地址</label>
+									<input class="form-control" type="text" id="down_url" name="down_url" value="{$appsdb['down_url']}" placeholder="下载地址">
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-comment">备注</label>
+									<textarea class="form-control" id="app-comment" name="comment" rows="3" placeholder="Rain OS,让你网站无忧管理,界面美观,主题好看">{$appsdb['comment']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1"></div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-1">
+									<label for="app-announcement">应用公告</label>
+									<textarea class="form-control" id="app-announcement" name="announcement" rows="3" placeholder="Rain OS,让你网站无忧管理,界面美观,主题好看">{$appsdb['announcement']}</textarea>
+								</div>
+								<div class="help-block col-sm-10 col-sm-offset-1">公告支持html元素</div>
+							</div>
+
+							<!-- END Step 1 -->
+						</div>
+						<!-- END Steps Content -->
+
+						<!-- Steps Navigation -->
+						<div id="subbox" class="block-content block-content-mini block-content-full border-t">
+							<div class="row">
+								<div class="col-sm-10 col-sm-offset-1">
+									<button class="btn btn-primary" id="sub" type="submit"><i class="fa fa-check"></i> 提交</button>
+									<a href="javascript:history.back();" class="btn btn-default" type="button"><i class="si fa-fw si-action-undo"></i> 返回</a>
+								</div>
+								<div class="col-xs-6 text-right">
+									<!--<button class="wizard-next btn btn-default" type="button">Next <i class="fa fa-arrow-right"></i></button>
+									<button class="wizard-finish btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>-->
+								</div>
+							</div>
+						</div>
+						<!-- END Steps Navigation -->
+					</form>
+					<!-- END Form -->
+				</div>
+				<!-- END Simple Classic Wizard -->
+			</div>
+		</div>
+		<!-- END Simple Wizards -->
+	</div>
+	<!-- END Page Content -->
+</main>
+<!-- END Main Container -->
+{/block}
+{block name="plugjs"}
+<script src="__ONEUI__/js/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="__ONEUI__/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="__ONEUI__/js/plugins/select2/select2.full.min.js"></script>
+<script src="__ONEUI__/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="__ONEUI__/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="__PLUGS__/webuploader/webuploader.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PLUGS__/layer/layer.js"></script> 
+{/block} 
+{block name="pagejs"}
+<script src="__JS__/app_edit.js"></script>
+{/block} {block name="script"}
+<script type="text/javascript">
+var global_public='__PUBLIC__';	
+jQuery(function () {
+    imgUpload();
+})
+</script>
+{/block}
